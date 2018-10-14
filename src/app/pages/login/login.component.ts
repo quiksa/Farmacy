@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,9 @@ export class LoginComponent implements OnInit {
   
   fullImagePath: string;
   private login;
-  private password;
+  private pass;
 
-  constructor() {
+  constructor(private auth: LoginService) {
     this.fullImagePath = './assets/images/logo.png'
    }
 
@@ -20,8 +21,9 @@ export class LoginComponent implements OnInit {
   }
 
   signin(){
-    
-
+    if(this.auth.getUserDetails(this.login,this.pass)){
+      
+    }
   }
 
 }

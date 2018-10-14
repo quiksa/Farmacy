@@ -4,18 +4,18 @@
   <span class="form-label">sign in to continue to Lines</span>
   <div class="form-group">
     <div class="input-group">
-      <span class="input-group-addon addon-left" id="username">
+      <span class="input-group-addon addon-left"  id="username">
         <i class="fa fa-user fa-fw"></i>
       </span>
-      <input class="form-control with-primary-addon" placeholder="Usuário" type="text">
+      <input class="form-control with-primary-addon" [(ngModel)]="login" placeholder="Usuário" type="text">
     </div>
     <div class="input-group">
       <span class="input-group-addon addon-left" id="password">
         <i class="fa fa-lock fa-fw"></i>
       </span>
-      <input class="form-control with-primary-addon" placeholder="Senha" type="password">
+      <input class="form-control with-primary-addon" [(ngModel)]="pass" placeholder="Senha" type="password">
     </div>
-    <button (click)="login()" class="btn btn-lg btn-primary">Login</button>
+    <button (click)="signin()" class="btn btn-lg btn-primary">Login</button>
     <!-- <a href="" class="btn btn-link">Register Now. →</a> -->
   </div>
 </div>
