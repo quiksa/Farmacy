@@ -1,0 +1,37 @@
+
+  <div class="form-group">
+    <label class="control-label">Nome</label>
+    <input type="text" class="form-control" [(ngModel)]="nome" placeholder="Nome">
+
+    <label class="control-label">E-mail</label>
+    <input type="email" class="form-control" placeholder="E-mail">
+
+    <label class="control-label">Usuário</label>
+    <input type="text" class="form-control" [(ngModel)]="usuario" placeholder="Usuário">
+
+    <label class="control-label">Senha</label>
+    <input type="password" class="form-control" [(ngModel)]="senha" placeholder="Senha">
+
+    <label class="control-label">CPF</label>
+    <input type="text" class="form-control" [(ngModel)]="cpf" placeholder="CPF">
+
+    <label class="control-label">Telefone</label>
+    <input type="tel" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
+
+    <div class="row">
+      <!-- <h3 class="col-md-12">Select a single city</h3> -->
+      <div class="col-md-6">
+          Estado
+          <ng-select [allowClear]="true" [items]="estadolist" [disabled]="disabled" (data)="refreshValue($event)" (selected)="selected($event)"
+            (removed)="removed($event)" (typed)="typed($event)" placeholder="Nenhum estado selecionado">
+          </ng-select>
+        </div>
+        <div class="col-md-6">
+            Cidade
+            <ng-select [allowClear]="true" [items]="items" [disabled]="disabled" (data)="refreshValue($event)" (selected)="selected($event)"
+              (removed)="removed($event)" (typed)="typed($event)" placeholder="Nenhum cidade selecionado">
+            </ng-select>
+          </div>
+    </div>
+
+  </div>

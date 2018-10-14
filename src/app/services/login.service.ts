@@ -18,20 +18,22 @@ export class LoginService {
   }
 
   getUserDetails(username, password) {
-    debugger
-    return this.http.post(this.url + '/funcionario/signin', {
+    return this.http.post(this.url + '/funcionario/signin/', {
       login: username,
       senha: password
     })
-    .map((response: Response) => response.json())
-    .subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log("Error occured");
-      }
-    );
+      .map((response: Response) => response.json())
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log("Error occured");
+        });
+  }
+
+  getEstado() {
+    return this.http.get(this.url + '/estado').map((response: Response) => response.json())
   }
 
 
