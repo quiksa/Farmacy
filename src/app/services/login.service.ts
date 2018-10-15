@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response,Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class LoginService {
@@ -16,12 +16,21 @@ export class LoginService {
   get isLoggedIn() {
     return this.loggedInStatus
   }
+  getUserDetails(username, password) { 
+    let parametro = JSON.stringify({
+      "idFuncionario": null,
+      "idPessoa": null,
+      "login":username,
+      "senha":password,
+      "idUnidade": null,
+      "idCargo": null,
+      "dhinsert": null,
+      "dhdesativacao": null
+      });
+    let headers = new Headers({'Content-type':'application/json'});
+    let options = new RequestOptions({headers:headers});
 
-  getUserDetails(username, password) {
-    return this.http.post(this.url + '/funcionario/signin/', {
-      login: username,
-      senha: password
-    })
+    return this.http.post(this.url + '/funcionario/signin/', parametro,options)
       .map((response: Response) => response.json())
       .subscribe(
         res => {
