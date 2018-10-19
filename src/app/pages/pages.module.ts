@@ -1,3 +1,4 @@
+import { CadastroService } from './../services/cadastro.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { routing } from './pages.routing';
@@ -24,7 +25,7 @@ import { SelectModule } from 'ng2-select';
         HttpModule,
         SelectModule
     ],
-    providers: [LoginService],
+    providers: [LoginService,CadastroService],
     declarations: [
         PagesComponent,
         LoginComponent,

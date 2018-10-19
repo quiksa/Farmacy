@@ -40,10 +40,4 @@ export class LoginService {
           console.log("Error occured");
         });
   }
-
-  getEstado() {
-    return this.http.get(this.url + '/estado').map((response: Response) => response.json())
-  }
-
-
 }
