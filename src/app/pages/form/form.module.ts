@@ -14,6 +14,9 @@ import { Ng2SelectComponent } from './components/ng2-select/ng2-select.component
 import { SingleSelectComponent } from './components/ng2-select/single-select/single-select.component';
 import { MultipleSelectComponent } from './components/ng2-select/multiple-select/multiple-select.component';
 import { ChildrenSelectComponent } from './components/ng2-select/children-select/children-select.component';
+import { ClienteComponent } from './components/cliente/cliente.component';
+import { FormsModule} from '@angular/forms';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 @NgModule({
     imports: [
@@ -21,6 +24,8 @@ import { ChildrenSelectComponent } from './components/ng2-select/children-select
         SharedModule,
         FileUploadModule,
         SelectModule,
+        NgxSelectModule,
+        FormsModule,
         routing
     ],
     declarations: [
@@ -31,7 +36,8 @@ import { ChildrenSelectComponent } from './components/ng2-select/children-select
         Ng2SelectComponent,
         SingleSelectComponent,
         MultipleSelectComponent,
-        ChildrenSelectComponent
+        ChildrenSelectComponent,
+        ClienteComponent
     ]
 })
 export class FormModule { }

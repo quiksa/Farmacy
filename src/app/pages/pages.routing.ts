@@ -1,16 +1,11 @@
 import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { LoginComponent } from './login/login.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
 
 export const childRoutes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
-    },
-    {
-        path: 'cadastro',
-        component: CadastroComponent,
     },
     {
         path: 'pages',

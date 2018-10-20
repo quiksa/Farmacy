@@ -12,7 +12,6 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { HttpModule } from '@angular/http';
-import { CadastroComponent } from './cadastro/cadastro.component';
 import { SelectModule } from 'ng2-select';
 
 @NgModule({
@@ -28,8 +27,7 @@ import { SelectModule } from 'ng2-select';
     providers: [LoginService,CadastroService],
     declarations: [
         PagesComponent,
-        LoginComponent,
-        CadastroComponent
+        LoginComponent
     ]
 })
 export class PagesModule { }

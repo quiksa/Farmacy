@@ -60,7 +60,7 @@ export let MENU_ITEM = [
     },
     {
         path: 'form',
-        title: 'Forms',
+        title: 'Cadastro',
         icon: 'check-square-o',
         children: [
             {
@@ -78,6 +78,10 @@ export let MENU_ITEM = [
             {
                 path: 'ng2-select',
                 title: 'Ng2-Select'
+            },
+            {
+                path: 'form-cliente',
+                title: 'Cliente'
             }
         ]
     },
