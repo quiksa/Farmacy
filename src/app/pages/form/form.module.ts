@@ -17,6 +17,8 @@ import { ChildrenSelectComponent } from './components/ng2-select/children-select
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { FormsModule} from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { FuncionarioComponent } from './components/funcionario/funcionario.component';
+import { UnidadeComponent } from './components/unidade/unidade.component';
 
 @NgModule({
     imports: [
@@ -37,7 +39,9 @@ import { NgxSelectModule } from 'ngx-select-ex';
         SingleSelectComponent,
         MultipleSelectComponent,
         ChildrenSelectComponent,
-        ClienteComponent
+        ClienteComponent,
+        FuncionarioComponent,
+        UnidadeComponent
     ]
 })
 export class FormModule { }

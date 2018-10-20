@@ -5,6 +5,8 @@ import { FormLayoutsComponent } from './components/form-layouts/form-layouts.com
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { Ng2SelectComponent } from './components/ng2-select/ng2-select.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
+import { FuncionarioComponent } from './components/funcionario/funcionario.component';
+import { UnidadeComponent } from './components/unidade/unidade.component';
 
 const childRoutes: Routes = [
     {
@@ -17,6 +19,8 @@ const childRoutes: Routes = [
             { path: 'file-upload', component: FileUploadComponent },
             { path: 'ng2-select', component: Ng2SelectComponent },
             { path: 'form-cliente', component: ClienteComponent },
+            { path: 'form-funcionario', component: FuncionarioComponent },
+            { path: 'form-unidade', component: UnidadeComponent }
         ]
     }
 ];

@@ -1,0 +1,76 @@
+<div class="form-group">
+  <label class="control-label">Nome</label>
+  <input type="text" class="form-control" [(ngModel)]="nome" placeholder="Nome">
+
+  <label class="control-label">E-mail</label>
+  <input type="email" class="form-control" [(ngModel)]="email" placeholder="E-mail">
+
+  <label class="control-label">Usuário</label>
+  <input type="text" class="form-control" [(ngModel)]="usuario" placeholder="Usuário">
+
+  <label class="control-label">Senha</label>
+  <input type="password" class="form-control" [(ngModel)]="senha" placeholder="Senha">
+
+  <label class="control-label">CPF</label>
+  <input type="text" class="form-control" [(ngModel)]="cpf" placeholder="CPF">
+
+  <label class="control-label">Telefone</label>
+  <input type="tel" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
+
+  <div class="row">
+    <!-- <h3 class="col-md-12">Select a single city</h3> -->
+    <div class="col-md-6">
+      Estado
+      <!-- <ng-select 
+            [allowClear]="true" 
+            [items]="items | async" 
+            [disabled]="disabled" 
+            (data)="refreshValue($event)" 
+            (selected)="selectedEstado($event)"
+            (removed)="removed($event)" 
+            (typed)="typed($event)" 
+            placeholder="Nenhum estado selecionado" 
+            (change)="onChange($event.target.value)">
+          </ng-select> -->
+              <ngx-select
+                [allowClear]="true" 
+                [items]="estadolist"
+                [(ngModel)]="itemIdEstado" 
+                optionValueField="idEstado"
+                (select)="selectedEstado($event)"
+                optionTextField="nmEstado" 
+                placeholder="Nenhum estado selecionado">
+              </ngx-select>
+    </div>
+    <div class="col-md-6">
+      Cidade
+          <ngx-select
+          [allowClear]="true" 
+          [items]="cidadelist" 
+          optionValueField="idCidade"
+          [(ngModel)]="itemIdCidade"
+          optionTextField="nmCidade" 
+          placeholder="Nenhuma cidade selecionada">
+        </ngx-select>
+    </div>
+
+    
+  </div>
+
+  <label class="control-label">Rua</label>
+  <input type="text" class="form-control" [(ngModel)]="rua" placeholder="Nome da rua">
+
+  <label class="control-label">Bairro</label>
+  <input type="text" class="form-control" [(ngModel)]="bairro" placeholder="Nome do Bairro">
+
+  <label class="control-label">Complemento</label>
+  <input type="text" class="form-control" [(ngModel)]="complemento" placeholder="Nome Complemento">
+
+
+  <div class="col-md-6" style="margin-top: 10px">
+    <button (click)="cadastra()" class="btn btn-primary">Cadastrar</button>
+    <button (click)="clean()" class="btn btn-primary limpar">Limpar</button>
+  </div>
+
+
+</div>

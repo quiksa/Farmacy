@@ -3,26 +3,30 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch'
 
+const url = 'http://localhost:8080';
+
 @Injectable()
 export class CadastroService {
 
-  private url = 'http://localhost:8080';
-
   constructor(private http: Http) { }
 
+  saveOrUpdateUnidade(unidade): Observable<any> {
+    return this.http.post(url + '/unidade/insertOrUpdadeUnidade', {unidade
+    })
+  }
 
   //Erro Aqui, me parece que não retorna nada da API
   getCidade(estado) {
-    return this.http.get(this.url + '/cidade/estado=' + estado).map((response: Response) => response.json())
+    return this.http.get(url + '/cidade/estado=' + estado).map((response: Response) => response.json())
   }
 
   getEstados(filter): Observable<Array<any>> {
-    return this.http.get(this.url + '/estado').map((response: Response) => response.json())
+    return this.http.get(url + '/estado').map((response: Response) => response.json())
     //return this.http.get(this.url + '/estado').map((res) => { return this.extractFilteredData(res, filter) }).catch(this.handleError);
   }
 
   saveOrUpdateCliente(idpessoa, nome, email, cpf, nrtelefone, rua, complemento, bairro, idcidade) {
-    return this.http.post(this.url + '/funcionario/saveOrUpdate', {
+    return this.http.post(url + '/funcionario/saveOrUpdate', {
       idpessoa: idpessoa,
       nmpessoa: nome,
       email: email,

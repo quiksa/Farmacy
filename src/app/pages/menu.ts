@@ -82,6 +82,14 @@ export let MENU_ITEM = [
             {
                 path: 'form-cliente',
                 title: 'Cliente'
+            },
+            {
+                path: 'form-funcionario',
+                title: 'Funcionario'
+            },
+            {
+                path: 'form-unidade',
+                title: 'Unidade'
             }
         ]
     },
