@@ -79,7 +79,7 @@ export class ClienteComponent implements OnInit {
         text: 'Há campos vazios, verifique por favor.',
       });
     } else {
-      this.cadastroservice.saveOrUpdateFuncionario(null, this.nome, this.email, this.usuario, this.senha, this.cpf, this.nrtelefone, this.rua, this.complemento, this.bairro, this.itemIdCidade).subscribe(res => {
+      this.cadastroservice.saveOrUpdateCliente(null, this.nome, this.email, this.cpf, this.nrtelefone, this.rua, this.complemento, this.bairro, this.itemIdCidade).subscribe(res => {
         console.log(res);
       }, err => {
         console.log("Error occured");
