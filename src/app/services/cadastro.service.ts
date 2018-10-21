@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch'
+import { Unidade } from '../pages/form/components/unidade/unidade.component';
 
 const url = 'http://localhost:8080';
 
@@ -10,8 +11,15 @@ export class CadastroService {
 
   constructor(private http: Http) { }
 
-  saveOrUpdateUnidade(unidade): Observable<any> {
-    return this.http.post(url + '/unidade/insertOrUpdadeUnidade', {unidade
+  saveOrUpdateUnidade(unidade: Unidade): Observable<any> {
+    return this.http.post(url + '/unidade/insertOrUpdadeUnidade', {
+      idUnidade: unidade.idunidade,
+      dsUnidade: unidade.dsunidade,
+      nmUnidade: unidade.nmunidade,
+      nmRduzido: unidade.nmreduzido,
+      cnpj: unidade.cnpj,
+      idCidade: unidade.idcidade,
+      idEndereco: unidade.idendereco
     })
   }
 

@@ -3,18 +3,15 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import swal from 'sweetalert2';
 import 'rxjs/add/operator/delay';
 
-class Unidade {
+export class Unidade {
   idunidade: string;
   dsunidade: string;
   nmunidade: string;
   nmreduzido: string;
   cnpj: string;
   idendereco: string;
-  bairro: string;
-  nmrua: string;
-  dscomplemento: string;
+  idcidade: string;
 }
-
 
 @Component({
   selector: 'app-unidade',
@@ -98,9 +95,8 @@ export class UnidadeComponent implements OnInit {
       unidade.idunidade = this.idunidade
       unidade.nmreduzido = this.nmreduzido
       unidade.nmunidade = this.nmunidade
-      unidade.dscomplemento = this.dscomplemento
-      unidade.bairro = this.bairro
-      unidade.nmrua = this.nmrua
+      unidade.idcidade = this.itemIdCidade
+
       this.cadastroservice.saveOrUpdateUnidade(unidade).subscribe(res => {
         console.log(res);
       }, err => {
