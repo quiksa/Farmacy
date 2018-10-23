@@ -8,6 +8,9 @@ export class Unidade {
   dsunidade: string;
   nmunidade: string;
   nmreduzido: string;
+  nmbairro: string;
+  dscomplemento: string;
+  nmrua:string;
   cnpj: string;
   idendereco: string;
   idcidade: string;
@@ -96,6 +99,9 @@ export class UnidadeComponent implements OnInit {
       unidade.nmreduzido = this.nmreduzido
       unidade.nmunidade = this.nmunidade
       unidade.idcidade = this.itemIdCidade
+      unidade.nmbairro = this.bairro
+      unidade.dscomplemento = this.dscomplemento
+      unidade.nmrua = this.nmrua
 
       this.cadastroservice.saveOrUpdateUnidade(unidade).subscribe(res => {
         console.log(res);

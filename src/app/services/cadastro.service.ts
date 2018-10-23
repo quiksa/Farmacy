@@ -17,6 +17,9 @@ export class CadastroService {
       dsUnidade: unidade.dsunidade,
       nmUnidade: unidade.nmunidade,
       nmRduzido: unidade.nmreduzido,
+      nmRua: unidade.nmrua,
+      dsComplemento: unidade.dscomplemento,
+      nmBairro: unidade.nmbairro,
       cnpj: unidade.cnpj,
       idCidade: unidade.idcidade,
       idEndereco: unidade.idendereco
