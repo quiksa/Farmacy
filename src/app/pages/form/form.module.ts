@@ -19,6 +19,7 @@ import { FormsModule} from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FuncionarioComponent } from './components/funcionario/funcionario.component';
 import { UnidadeComponent } from './components/unidade/unidade.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { UnidadeComponent } from './components/unidade/unidade.component';
         SelectModule,
         NgxSelectModule,
         FormsModule,
+        NgxPaginationModule,
         routing
     ],
     declarations: [

@@ -11,6 +11,7 @@ import { NotificationComponent } from '../ui/components/notification/notificatio
 export class LoginComponent implements OnInit {
 
   fullImagePath: string;
+  private unidadeList
   private login;
   private pass;
 
@@ -19,7 +20,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.auth.loadUnidades()
+    .subscribe(res => {
+      this.unidadeList = res
+    }, err => {
+      console.log("Error occured");
+    });
   }
 
   signin() {

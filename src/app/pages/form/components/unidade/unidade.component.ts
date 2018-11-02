@@ -8,9 +8,9 @@ export class Unidade {
   dsunidade: string;
   nmunidade: string;
   nmreduzido: string;
-  nmbairro: string;
+  bairro: string;
   dscomplemento: string;
-  nmrua:string;
+  nmrua: string;
   cnpj: string;
   idendereco: string;
   idcidade: string;
@@ -23,6 +23,9 @@ export class Unidade {
   encapsulation: ViewEncapsulation.None  // Enable dynamic HTML styles
 })
 export class UnidadeComponent implements OnInit {
+  tableData: Array<any>;
+  pageSize = 10;
+  pageNumber = 1;
 
   private idunidade = null;
   private dsunidade;
@@ -30,7 +33,7 @@ export class UnidadeComponent implements OnInit {
   private nmunidade;
   private nmreduzido;
   private cnpj;
-  private itemIdCidade;
+  private idcidade;
   private bairro;
   private nmrua;
   private dscomplemento;
@@ -38,6 +41,7 @@ export class UnidadeComponent implements OnInit {
   private estadolist;
   private cidadelist;
 
+  constructor(private cadastroservice: CadastroService) { }
 
   //PEGA O ESTADO SELECIONADO E PROCURA AS CIDADES
   public selectedEstado(value: any): void {
@@ -53,17 +57,31 @@ export class UnidadeComponent implements OnInit {
     });
   }
 
-  constructor(private cadastroservice: CadastroService) { }
-
-
-  ngOnInit() {
-
+  public loadEstados() {
     this.cadastroservice.getEstados('')
       .subscribe(res => {
         this.estadolist = res
       }, err => {
         console.log("Error occured");
       });
+  }
+
+  ngOnInit() {
+    this.loadData();
+    this.loadEstados();
+  }
+
+  loadData() {
+    this.cadastroservice.loadUnidades()
+      .subscribe(res => {
+        this.tableData = res
+      }, err => {
+        console.log("Error occured");
+      });;
+  }
+
+  pageChanged(pN: number): void {
+    this.pageNumber = pN;
   }
 
   clean() {
@@ -77,14 +95,14 @@ export class UnidadeComponent implements OnInit {
     this.bairro = null;
     this.dscomplemento = null;
     this.itemIdEstado = null;
-    this.itemIdCidade = null;
+    this.idcidade = null;
   }
 
 
   ///METODO PARA CADASTRAR
 
   cadastra() {
-    if (!this.dsunidade || !this.nmunidade || !this.nmreduzido || !this.cnpj) {
+    if (!this.dsunidade || !this.idcidade || !this.nmunidade || !this.nmreduzido || !this.cnpj) {
       swal({
         type: 'error',
         title: 'Oops...',
@@ -98,17 +116,63 @@ export class UnidadeComponent implements OnInit {
       unidade.idunidade = this.idunidade
       unidade.nmreduzido = this.nmreduzido
       unidade.nmunidade = this.nmunidade
-      unidade.idcidade = this.itemIdCidade
-      unidade.nmbairro = this.bairro
+      unidade.idcidade = this.idcidade
+      unidade.bairro = this.bairro
       unidade.dscomplemento = this.dscomplemento
       unidade.nmrua = this.nmrua
-
       this.cadastroservice.saveOrUpdateUnidade(unidade).subscribe(res => {
-        console.log(res);
+        let newItem = (JSON.parse(res._body))
+        debugger
+        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idUnidade);
+        let index = this.tableData.indexOf(updateItem);
+        this.tableData[index] = newItem;
+        this.clean();
       }, err => {
         console.log("Error occured");
       })
-
     }
+  }
+
+  findIndexToUpdate(newItem) { 
+    return newItem.idUnidade === this;
+  }
+
+  editar(item) {
+    this.idunidade = item.idUnidade;
+    this.dsunidade = item.dsUnidade;
+    this.nmunidade = item.nmUnidade
+    this.nmreduzido = item.nmRduzido
+    this.bairro = item.endereco.bairro;
+    this.dscomplemento = item.endereco.dsComplemento;
+    this.nmrua = item.endereco.nmRua;
+    this.cnpj = item.cnpj;
+    this.idendereco = item.endereco.idEndereco;
+    this.idcidade = item.endereco.cidade.idCidade;
+    this.itemIdEstado = item.endereco.cidade.estado.idEstado;
+    this.procuraCidades(this.itemIdEstado)
+  }
+
+  excluir(item) {
+    swal({
+      title: 'Excluir Unidade',
+      text: 'Tem certeza que deseja excluir a unidade?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, Excluir!'
+    }).then((result) => {
+      if (result.value) {
+        this.cadastroservice.deleteUnidade(item.idUnidade).subscribe(res => {
+          const index: number = this.tableData.indexOf(item);
+          if (index !== -1) {
+            this.tableData.splice(index, 1);
+            this.clean();
+          }
+        }, err => {
+          console.log("Error occured");
+        })
+      }
+    });
   }
 }

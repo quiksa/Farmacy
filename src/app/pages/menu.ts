@@ -61,7 +61,7 @@ export let MENU_ITEM = [
     {
         path: 'form',
         title: 'Cadastro',
-        icon: 'check-square-o',
+        icon: 'cog',
         children: [
             {
                 path: 'form-inputs',

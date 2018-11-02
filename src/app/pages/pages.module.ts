@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { HttpModule } from '@angular/http';
 import { SelectModule } from 'ng2-select';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { SelectModule } from 'ng2-select';
         routing,
         FormsModule,
         HttpModule,
-        SelectModule
+        SelectModule,
+        NgxSelectModule
     ],
     providers: [LoginService,CadastroService],
     declarations: [

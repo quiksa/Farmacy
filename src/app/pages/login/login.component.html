@@ -4,7 +4,7 @@
   <span class="form-label">sign in to continue to Lines</span>
   <div class="form-group">
     <div class="input-group">
-      <span class="input-group-addon addon-left"  id="username">
+      <span class="input-group-addon addon-left" id="username">
         <i class="fa fa-user fa-fw"></i>
       </span>
       <input class="form-control with-primary-addon" [(ngModel)]="login" placeholder="Usuário" type="text">
@@ -14,6 +14,14 @@
         <i class="fa fa-lock fa-fw"></i>
       </span>
       <input class="form-control with-primary-addon" [(ngModel)]="pass" placeholder="Senha" type="password">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon addon-left" id="username">
+        <i class="fa fa-user fa-fw"></i>
+      </span>
+      <ngx-select [allowClear]="true" [items]="unidadeList" [(ngModel)]="idUnidade"
+        optionTextField="nmRduzido" placeholder="Selecione a Unidade">
+      </ngx-select>
     </div>
     <button (click)="signin()" class="btn btn-lg btn-primary">Login</button>
     <!-- <a routerLink="/cadastro" class="btn btn-link">Cadastrar. →</a> -->

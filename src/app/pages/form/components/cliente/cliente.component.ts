@@ -12,10 +12,9 @@ import 'rxjs/add/operator/delay';
 })
 export class ClienteComponent implements OnInit {
 
+  private sgsexo;
   private nome;
   private email;
-  private usuario;
-  private senha;
   private rua;
   private complemento;
   private cpf;
@@ -59,20 +58,19 @@ export class ClienteComponent implements OnInit {
     debugger
     this.nome = null;
     this.email = null;
-    this.usuario = null;
-    this.senha = null;
     this.cpf = null;
     this.nrtelefone = null;
     this.estado = null;
     this.itemIdEstado = null;
     this.itemIdCidade = null;
+    this.sgsexo= null;
   }
 
 
   ///METODO PARA CADASTRAR
 
   cadastra() {
-    if (!this.cpf || !this.nome || !this.email || !this.usuario || !this.senha || !this.nrtelefone && this.estado) {
+    if (!this.cpf || !this.nome || !this.email || !this.nrtelefone && this.estado) {
       swal({
         type: 'error',
         title: 'Oops...',

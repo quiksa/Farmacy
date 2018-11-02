@@ -19,14 +19,25 @@ export class CadastroService {
       nmRduzido: unidade.nmreduzido,
       nmRua: unidade.nmrua,
       dsComplemento: unidade.dscomplemento,
-      nmBairro: unidade.nmbairro,
+      nmBairro: unidade.bairro,
       cnpj: unidade.cnpj,
       idCidade: unidade.idcidade,
-      idEndereco: unidade.idendereco
+      idendereco: unidade.idendereco
     })
   }
 
-  //Erro Aqui, me parece que não retorna nada da API
+  loadUnidades() {
+    return this.http.get(url + '/unidade').map((response: Response) => response.json())
+  }
+
+  deleteUnidade(idunidade){
+    return this.http.get(url + '/unidade/deletaUnidade',{
+      params: {
+        idunidade: idunidade,
+      }
+    })
+  }
+
   getCidade(estado) {
     return this.http.get(url + '/cidade/estado=' + estado).map((response: Response) => response.json())
   }
