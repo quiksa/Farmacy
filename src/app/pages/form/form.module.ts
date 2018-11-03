@@ -19,6 +19,7 @@ import { FormsModule} from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FuncionarioComponent } from './components/funcionario/funcionario.component';
 import { UnidadeComponent } from './components/unidade/unidade.component';
+import { CargoComponent } from './components/cargo/cargo.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
@@ -43,7 +44,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
         ChildrenSelectComponent,
         ClienteComponent,
         FuncionarioComponent,
-        UnidadeComponent
+        UnidadeComponent,
+        CargoComponent
     ]
 })
 export class FormModule { }

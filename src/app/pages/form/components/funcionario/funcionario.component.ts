@@ -56,7 +56,6 @@ export class FuncionarioComponent implements OnInit {
   }
 
   clean() {
-    debugger
     this.nome = null;
     this.email = null;
     this.usuario = null;
@@ -79,11 +78,11 @@ export class FuncionarioComponent implements OnInit {
         text: 'Há campos vazios, verifique por favor.',
       });
     } else {
-      this.cadastroservice.saveOrUpdateCliente(null, this.nome, this.email, this.cpf, this.nrtelefone, this.rua, this.complemento, this.bairro, this.itemIdCidade).subscribe(res => {
-        console.log(res);
-      }, err => {
-        console.log("Error occured");
-      })
+      // this.cadastroservice.saveOrUpdateFuncionario().subscribe(res => {
+      //   console.log(res);
+      // }, err => {
+      //   console.log("Error occured");
+      // })
 
     }
   }

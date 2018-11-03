@@ -7,6 +7,7 @@ import { Ng2SelectComponent } from './components/ng2-select/ng2-select.component
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { FuncionarioComponent } from './components/funcionario/funcionario.component';
 import { UnidadeComponent } from './components/unidade/unidade.component';
+import { CargoComponent } from './components/cargo/cargo.component';
 
 const childRoutes: Routes = [
     {
@@ -20,7 +21,8 @@ const childRoutes: Routes = [
             { path: 'ng2-select', component: Ng2SelectComponent },
             { path: 'form-cliente', component: ClienteComponent },
             { path: 'form-funcionario', component: FuncionarioComponent },
-            { path: 'form-unidade', component: UnidadeComponent }
+            { path: 'form-unidade', component: UnidadeComponent },
+            { path: 'form-cargo', component: CargoComponent }
         ]
     }
 ];

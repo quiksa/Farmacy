@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch'
 import { Unidade } from '../pages/form/components/unidade/unidade.component';
+import { Cliente } from '../pages/form/components/cliente/cliente.component';
 
 const url = 'http://localhost:8080';
 
@@ -26,16 +27,52 @@ export class CadastroService {
     })
   }
 
+  loadClientes() {
+    return this.http.get(url + '/cliente').map((response: Response) => response.json())
+  }
+
   loadUnidades() {
     return this.http.get(url + '/unidade').map((response: Response) => response.json())
   }
 
-  deleteUnidade(idunidade){
-    return this.http.get(url + '/unidade/deletaUnidade',{
+  deleteUnidade(idunidade) {
+    return this.http.get(url + '/unidade/deletaUnidade', {
       params: {
         idunidade: idunidade,
       }
     })
+  }
+
+  saveOrUpdateFuncionario() {
+
+  }
+
+  deleteCliente(idcliente) {
+    return this.http.get(url + '/cliente/deleteCliente', {
+      params: {
+        idcliente: idcliente,
+      }
+    })
+  }
+
+  deleteCargo(idcargo) {
+    return this.http.get(url + '/cargo/deleteCargo', {
+      params: {
+        idcargo: idcargo,
+      }
+    })
+  }
+
+  saveOrUpdateCargo(cargo): Observable<any> {
+    return this.http.post(url + '/cargo/insertOrUpdadeCargo', {
+      idCargo: cargo.idcargo,
+      nmCargo: cargo.nmcargo,
+      dsCargo: cargo.dscargo
+    })
+  }
+
+  loadCargos() {
+    return this.http.get(url + '/cargo/load').map((response: Response) => response.json())
   }
 
   getCidade(estado) {
@@ -47,17 +84,21 @@ export class CadastroService {
     //return this.http.get(this.url + '/estado').map((res) => { return this.extractFilteredData(res, filter) }).catch(this.handleError);
   }
 
-  saveOrUpdateCliente(idpessoa, nome, email, cpf, nrtelefone, rua, complemento, bairro, idcidade) {
-    return this.http.post(url + '/funcionario/saveOrUpdate', {
-      idpessoa: idpessoa,
-      nmpessoa: nome,
-      email: email,
-      cpf: cpf,
-      nrtelefone: nrtelefone,
-      nmrua: rua,
-      dscomplemento: complemento,
-      bairro: bairro,
-      idcidade: idcidade
+  saveOrUpdateCliente(cliente: Cliente): Observable<any> {
+    return this.http.post(url + '/cliente/insertOrUpdadeCliente', {
+      idpessoa: cliente.idpessoa,
+      idCliente: cliente.idcliente,
+      nmPessoa: cliente.nmpessoa,
+      email: cliente.email,
+      nrCpf: cliente.nrcpf,
+      nrTelefone: cliente.nrtelefone,
+      nmrua: cliente.nmrua,
+      dtnascimento: cliente.dtnascimento,
+      dscomplemento: cliente.dscomplemento,
+      bairro: cliente.bairro,
+      idcidade: cliente.idcidade,
+      idEndereco: cliente.idendereco,
+      sgsexo: cliente.sgsexo
     })
   }
 

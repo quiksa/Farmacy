@@ -122,10 +122,13 @@ export class UnidadeComponent implements OnInit {
       unidade.nmrua = this.nmrua
       this.cadastroservice.saveOrUpdateUnidade(unidade).subscribe(res => {
         let newItem = (JSON.parse(res._body))
-        debugger
         let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idUnidade);
-        let index = this.tableData.indexOf(updateItem);
-        this.tableData[index] = newItem;
+        if (updateItem) {
+          let index = this.tableData.indexOf(updateItem);
+          this.tableData[index] = newItem;
+        } else {
+          this.tableData.push(newItem)
+        }
         this.clean();
       }, err => {
         console.log("Error occured");
@@ -133,7 +136,7 @@ export class UnidadeComponent implements OnInit {
     }
   }
 
-  findIndexToUpdate(newItem) { 
+  findIndexToUpdate(newItem) {
     return newItem.idUnidade === this;
   }
 

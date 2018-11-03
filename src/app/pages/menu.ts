@@ -90,6 +90,10 @@ export let MENU_ITEM = [
             {
                 path: 'form-unidade',
                 title: 'Unidade'
+            },
+            {
+                path: 'form-cargo',
+                title: 'Cargo'
             }
         ]
     },

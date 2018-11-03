@@ -3,24 +3,45 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import swal from 'sweetalert2';
 import 'rxjs/add/operator/delay';
 
+export class Cliente {
+  idcliente: string;
+  idpessoa: string;
+  nmpessoa: string;
+  email: string;
+  nrcpf: string;
+  nrtelefone: string;
+  idendereco: string;
+  dtnascimento: string;
+  sgsexo: string;
+  bairro: string;
+  nmrua: string;
+  dscomplemento: string;
+  idcidade: string;
+}
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.scss'],
-  encapsulation: ViewEncapsulation.None  // Enable dynamic HTML styles
+  styleUrls: ['./cliente.component.scss']
 })
 export class ClienteComponent implements OnInit {
 
+  tableData: Array<any>;
+  pageSize = 10;
+  pageNumber = 1;
+
   private sgsexo;
-  private nome;
+  private idpessoa;
+  private idendereco;
+  private idCliente;
+  private nmpessoa;
   private email;
-  private rua;
-  private complemento;
-  private cpf;
+  private nmrua;
+  private dscomplemento;
+  private dtnascimento;
+  private nrcpf;
   private bairro;
   private nrtelefone;
-  private estado;
   private itemIdEstado;
   private itemIdCidade;
   private estadolist;
@@ -45,7 +66,7 @@ export class ClienteComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.loadData();
     this.cadastroservice.getEstados('')
       .subscribe(res => {
         this.estadolist = res
@@ -55,34 +76,119 @@ export class ClienteComponent implements OnInit {
   }
 
   clean() {
-    debugger
-    this.nome = null;
+    this.nmpessoa = null;
     this.email = null;
-    this.cpf = null;
+    this.nrcpf = null;
     this.nrtelefone = null;
-    this.estado = null;
     this.itemIdEstado = null;
     this.itemIdCidade = null;
-    this.sgsexo= null;
+    this.sgsexo = null;
+    this.dscomplemento = null;
+    this.dtnascimento = null;
+    this.idCliente = null;
+    this.idendereco = null;
+    this.idpessoa = null;
+    this.nmrua = null;
+    this.bairro = null;
   }
 
 
-  ///METODO PARA CADASTRAR
+  loadData() {
+    this.cadastroservice.loadClientes()
+      .subscribe(res => {
+        this.tableData = res
+      }, err => {
+        console.log("Error occured");
+      });;
+  }
 
+  pageChanged(pN: number): void {
+    this.pageNumber = pN;
+  }
+
+  ///METODO PARA CADASTRAR
   cadastra() {
-    if (!this.cpf || !this.nome || !this.email || !this.nrtelefone && this.estado) {
+    if (!this.nrcpf || !this.nmpessoa || !this.email || !this.nrtelefone || !this.dtnascimento || !this.sgsexo || !this.bairro || !this.dscomplemento || !this.email || !this.itemIdCidade) {
       swal({
         type: 'error',
         title: 'Oops...',
         text: 'Há campos vazios, verifique por favor.',
       });
     } else {
-      this.cadastroservice.saveOrUpdateCliente(null, this.nome, this.email, this.cpf, this.nrtelefone, this.rua, this.complemento, this.bairro, this.itemIdCidade).subscribe(res => {
-        console.log(res);
+      let cliente = new Cliente()
+      cliente.bairro = this.bairro
+      cliente.dtnascimento = this.dtnascimento;
+      cliente.dscomplemento = this.dscomplemento;
+      cliente.email = this.email;
+      cliente.idcidade = this.itemIdCidade;
+      cliente.idcliente = this.idCliente;
+      cliente.idendereco = this.idendereco;
+      cliente.idpessoa = this.idpessoa;
+      cliente.nmpessoa = this.nmpessoa;
+      cliente.nmrua = this.nmrua;
+      cliente.nrcpf = this.nrcpf;
+      cliente.sgsexo = this.sgsexo;
+      cliente.nrtelefone = this.nrtelefone;
+      this.cadastroservice.saveOrUpdateCliente(cliente).subscribe(res => {
+        let newItem = (JSON.parse(res._body))
+        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idCliente);
+        if (updateItem) {
+          let index = this.tableData.indexOf(updateItem);
+          this.tableData[index] = newItem;
+        } else {
+          this.tableData.push(newItem)
+        }
+        this.clean();
       }, err => {
         console.log("Error occured");
       })
 
     }
   }
+
+  findIndexToUpdate(newItem) {
+    return newItem.idCliente === this;
+  }
+
+  editar(item) {
+    this.sgsexo = item.pessoa.sgsexo
+    this.idpessoa = item.pessoa.idPessoa
+    this.idendereco = item.pessoa.endereco.idEndereco
+    this.idCliente = item.idCliente
+    this.nmpessoa = item.pessoa.nmPessoa
+    this.email = item.pessoa.email
+    this.nmrua = item.pessoa.endereco.nmRua
+    this.dscomplemento = item.pessoa.endereco.dsComplemento
+    this.dtnascimento = item.pessoa.dtnascimento
+    this.nrcpf = item.pessoa.nrcpf
+    this.bairro = item.pessoa.endereco.bairro
+    this.nrtelefone = item.pessoa.nrtelefone
+    this.itemIdEstado = item.pessoa.endereco.cidade.estado.idEstado
+    this.itemIdCidade = item.pessoa.endereco.cidade.idCidade
+  }
+
+  excluir(item) {
+    swal({
+      title: 'Excluir Cliente',
+      text: 'Tem certeza que deseja excluir o Cliente?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, Excluir!'
+    }).then((result) => {
+      if (result.value) {
+        this.cadastroservice.deleteCliente(item.idCliente).subscribe(res => {
+          const index: number = this.tableData.indexOf(item);
+          if (index !== -1) {
+            this.tableData.splice(index, 1);
+            this.clean();
+          }
+        }, err => {
+          console.log("Error occured");
+        })
+      }
+    });
+  }
+
 }

@@ -3,7 +3,7 @@
   <div class="row show-grid">
     <div class="col-md-4">
       <label class="control-label">Nome</label>
-      <input type="text" class="form-control" [(ngModel)]="nome" placeholder="Nome">
+      <input type="text" class="form-control" [(ngModel)]="nmpessoa" placeholder="Nome">
     </div>
     <div class="col-md-4">
       <label class="control-label">E-mail</label>
@@ -11,14 +11,14 @@
     </div>
     <div class="col-md-4">
       <label class="control-label">CPF</label>
-      <input type="text" class="form-control" [(ngModel)]="cpf" placeholder="CPF">
+      <input type="number" class="form-control" [(ngModel)]="nrcpf" placeholder="CPF">
     </div>
   </div>
 
   <div class="row show-grid">
     <div class="col-md-4">
       <label class="control-label">Telefone</label>
-      <input type="tel" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
+      <input type="number" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
     </div>
     <div class="col-md-4">
       <label class="control-label">Data de Nascimento</label>
@@ -46,7 +46,7 @@
     </div>
     <div class="col-md-4">
       <label class="control-label">Rua</label>
-      <input type="text" class="form-control" [(ngModel)]="rua" placeholder="Nome da rua">
+      <input type="text" class="form-control" [(ngModel)]="nmrua" placeholder="Nome da rua">
     </div>
   </div>
 
@@ -57,7 +57,7 @@
     </div>
     <div class="col-md-6">
       <label class="control-label">Complemento</label>
-      <input type="text" class="form-control" [(ngModel)]="complemento" placeholder="Nome Complemento">
+      <input type="text" class="form-control" [(ngModel)]="dscomplemento" placeholder="Nome Complemento">
     </div>
   </div>
 
@@ -68,4 +68,62 @@
     </div>
   </div>
 
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <card cardTitle="Clientes">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th>Sexo</th>
+            <th>Data de Nascimento</th>
+            <th>Endereço</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{item.pessoa.nmPessoa}}</td>
+            <td>{{item.pessoa.nrcpf}}</td>
+            <td>{{item.pessoa.nrtelefone}}</td>
+            <td>{{item.pessoa.email}}</td>
+            <td>{{item.pessoa.sgsexo}}</td>
+            <td>{{item.pessoa.dtnascimento}}</td>
+            <td>{{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.cidade.estado.uf}} / {{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.nmRua}}-{{item.pessoa.endereco.bairro}}</td>
+            <td>
+              <button (click)="editar(item)" class="btn edit">Editar</button>
+              <button (click)="excluir(item)" class="btn del">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Por Página</span>
+          </div>
+        </div>
+      </form>
+    </card>
+  </div>
 </div>
