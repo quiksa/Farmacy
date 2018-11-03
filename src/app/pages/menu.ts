@@ -85,7 +85,7 @@ export let MENU_ITEM = [
             },
             {
                 path: 'form-funcionario',
-                title: 'Funcionario'
+                title: 'Funcionário'
             },
             {
                 path: 'form-unidade',

@@ -38,8 +38,8 @@ export class UnidadeComponent implements OnInit {
   private nmrua;
   private dscomplemento;
   private itemIdEstado;
-  private estadolist;
-  private cidadelist;
+  private estadoList;
+  private cidadeList;
 
   constructor(private cadastroservice: CadastroService) { }
 
@@ -51,7 +51,7 @@ export class UnidadeComponent implements OnInit {
 
   public procuraCidades(idEstado) {
     this.cadastroservice.getCidade(idEstado).subscribe(res => {
-      this.cidadelist = res
+      this.cidadeList = res
     }, err => {
       console.log("Error occured");
     });
@@ -60,7 +60,7 @@ export class UnidadeComponent implements OnInit {
   public loadEstados() {
     this.cadastroservice.getEstados('')
       .subscribe(res => {
-        this.estadolist = res
+        this.estadoList = res
       }, err => {
         console.log("Error occured");
       });

@@ -34,13 +34,13 @@
   <div class="row">
     <div class="col-md-4 magemtop">
       Estado
-      <ngx-select [allowClear]="true" [items]="estadolist" [(ngModel)]="itemIdEstado" optionValueField="idEstado"
+      <ngx-select [allowClear]="true" [items]="estadoList" [(ngModel)]="itemIdEstado" optionValueField="idEstado"
         (select)="selectedEstado($event)" optionTextField="nmEstado" placeholder="Nenhum estado selecionado">
       </ngx-select>
     </div>
     <div class="col-md-4 magemtop">
       Cidade
-      <ngx-select [allowClear]="true" [items]="cidadelist" optionValueField="idCidade" [(ngModel)]="itemIdCidade"
+      <ngx-select [allowClear]="true" [items]="cidadeList" optionValueField="idCidade" [(ngModel)]="itemIdCidade"
         optionTextField="nmCidade" placeholder="Nenhuma cidade selecionada">
       </ngx-select>
     </div>

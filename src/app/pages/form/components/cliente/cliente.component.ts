@@ -44,8 +44,8 @@ export class ClienteComponent implements OnInit {
   private nrtelefone;
   private itemIdEstado;
   private itemIdCidade;
-  private estadolist;
-  private cidadelist;
+  private estadoList;
+  private cidadeList;
 
 
   //PEGA O ESTADO SELECIONADO E PROCURA AS CIDADES
@@ -56,7 +56,7 @@ export class ClienteComponent implements OnInit {
 
   public procuraCidades(idEstado) {
     this.cadastroservice.getCidade(idEstado).subscribe(res => {
-      this.cidadelist = res
+      this.cidadeList = res
     }, err => {
       console.log("Error occured");
     });
@@ -69,7 +69,7 @@ export class ClienteComponent implements OnInit {
     this.loadData();
     this.cadastroservice.getEstados('')
       .subscribe(res => {
-        this.estadolist = res
+        this.estadoList = res
       }, err => {
         console.log("Error occured");
       });

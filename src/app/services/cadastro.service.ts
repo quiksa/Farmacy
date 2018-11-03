@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch'
 import { Unidade } from '../pages/form/components/unidade/unidade.component';
 import { Cliente } from '../pages/form/components/cliente/cliente.component';
+import { Funcionario } from '../pages/form/components/funcionario/funcionario.component';
 
 const url = 'http://localhost:8080';
 
@@ -43,8 +44,26 @@ export class CadastroService {
     })
   }
 
-  saveOrUpdateFuncionario() {
-
+  saveOrUpdateFuncionario(funcionario: Funcionario): Observable<any> {
+    return this.http.post(url + '/funcionario/insertOrUpdadeFuncionario', {
+      idcargo: funcionario.idcargo,
+      idcidade: funcionario.idcidade,
+      idEndereco: funcionario.idendereco,
+      idFuncionario: funcionario.idfuncionario,
+      idpessoa: funcionario.idpessoa,
+      idunidade: funcionario.idunidade,
+      bairro: funcionario.bairro,
+      dscomplemento: funcionario.dscomplemento,
+      dtnascimento: funcionario.dtnascimento,
+      email: funcionario.email,
+      nmPessoa: funcionario.nmpessoa,
+      nmrua: funcionario.nmrua,
+      nrCpf: funcionario.nrcpf,
+      nrTelefone: funcionario.nrtelefone,
+      senha: funcionario.senha,
+      sgsexo: funcionario.sgsexo,
+      login: funcionario.usuario
+    })
   }
 
   deleteCliente(idcliente) {
@@ -69,6 +88,10 @@ export class CadastroService {
       nmCargo: cargo.nmcargo,
       dsCargo: cargo.dscargo
     })
+  }
+
+  loadFuncionarios(){
+    return this.http.get(url + '/funcionario/load').map((response: Response) => response.json())
   }
 
   loadCargos() {

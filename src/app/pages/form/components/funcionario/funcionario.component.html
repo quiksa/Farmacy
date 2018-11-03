@@ -3,14 +3,13 @@
   <div class="row">
     <div class="col-md-4">
       <label class="control-label">Nome</label>
-      <input type="text" class="form-control" [(ngModel)]="nome" placeholder="Nome">
+      <input type="text" class="form-control" [(ngModel)]="nmpessoa" placeholder="Nome">
     </div>
 
     <div class="col-md-4">
       <label class="control-label">E-mail</label>
       <input type="email" class="form-control" [(ngModel)]="email" placeholder="E-mail">
     </div>
-
 
     <div class="col-md-4">
       <label class="control-label">Usuário</label>
@@ -24,12 +23,12 @@
 
     <div class="col-md-4">
       <label class="control-label">CPF</label>
-      <input type="text" class="form-control" [(ngModel)]="cpf" placeholder="CPF">
+      <input type="number" class="form-control" [(ngModel)]="nrcpf" placeholder="CPF">
     </div>
 
     <div class="col-md-4">
       <label class="control-label">Telefone</label>
-      <input type="tel" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
+      <input type="number" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
     </div>
 
   </div>
@@ -37,31 +36,56 @@
   <div class="row">
     <div class="col-md-4 magemtop">
       Estado
-      <ngx-select [allowClear]="true" [items]="estadolist" [(ngModel)]="itemIdEstado" optionValueField="idEstado"
+      <ngx-select [allowClear]="true" [items]="estadoList" [(ngModel)]="itemIdEstado" optionValueField="idEstado"
         (select)="selectedEstado($event)" optionTextField="nmEstado" placeholder="Nenhum estado selecionado">
       </ngx-select>
     </div>
     <div class="col-md-4 magemtop">
       Cidade
-      <ngx-select [allowClear]="true" [items]="cidadelist" optionValueField="idCidade" [(ngModel)]="itemIdCidade"
+      <ngx-select [allowClear]="true" [items]="cidadeList" optionValueField="idCidade" [(ngModel)]="itemIdCidade"
         optionTextField="nmCidade" placeholder="Nenhuma cidade selecionada">
       </ngx-select>
     </div>
     <div class="col-md-4">
       <label class="control-label">Rua</label>
-      <input type="text" class="form-control" [(ngModel)]="rua" placeholder="Nome da rua">
+      <input type="text" class="form-control" [(ngModel)]="nmrua" placeholder="Nome da rua">
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <label class="control-label">Bairro</label>
+      <input type="text" class="form-control" [(ngModel)]="bairro" placeholder="Nome do Bairro">
+    </div>
+    <div class="col-md-4">
+      <label class="control-label">Complemento</label>
+      <input type="text" class="form-control" [(ngModel)]="dscomplemento" placeholder="Nome Complemento">
+    </div>
+    <div class="col-md-4">
+      <label class="control-label">Sexo</label>
+      <ngx-select [allowClear]="true" [items]="['M', 'F']" [(ngModel)]="sgsexo" placeholder="Masculino/Feminino">
+      </ngx-select>
     </div>
   </div>
 
   <div class="row">
-      <div class="col-md-6">
-          <label class="control-label">Bairro</label>
-          <input type="text" class="form-control" [(ngModel)]="bairro" placeholder="Nome do Bairro">
-      </div>
-      <div class="col-md-6">
-          <label class="control-label">Complemento</label>
-          <input type="text" class="form-control" [(ngModel)]="complemento" placeholder="Nome Complemento">
-      </div>
+    <div class="col-md-4">
+      <label class="control-label">Cargos</label>
+      <ngx-select [allowClear]="true" [items]="cargoList" optionValueField="idCargo" [(ngModel)]="idcargo"
+        optionTextField="nmCargo" placeholder="Ex: Gerente">
+      </ngx-select>
+    </div>
+    <div class="col-md-4">
+      <label class="control-label">Unidade</label>
+      <ngx-select [allowClear]="true" [items]="unidadeList" optionValueField="idUnidade" [(ngModel)]="idunidade"
+        optionTextField="nmUnidade" placeholder="Ex: Matriz">
+      </ngx-select>
+    </div>
+    <div class="col-md-4">
+      <label class="control-label">Data de Nascimento</label>
+      <input type="date" class="form-control" [(ngModel)]="dtnascimento" placeholder="Data de Nascimento">
+    </div>
   </div>
 
   <div class="row">
@@ -70,5 +94,68 @@
       <button (click)="clean()" class="btn btn-primary limpar">Limpar</button>
     </div>
   </div>
-  
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <card cardTitle="Funcionarios">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Cargo</th>
+            <th>Unidade</th>
+            <th>E-mail</th>
+            <th>Sexo</th>
+            <th>Data de Nascimento</th>
+            <th>Endereço</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{item.pessoa.nmPessoa}}</td>
+            <td>{{item.pessoa.nrcpf}}</td>
+            <td>{{item.pessoa.nrtelefone}}</td>
+            <td>{{item.cargo.nmCargo}}</td>
+            <td>{{item.unidade.nmRduzido}}</td>
+            <td>{{item.pessoa.email}}</td>
+            <td>{{item.pessoa.sgsexo}}</td>
+            <td>{{item.pessoa.dtnascimento}}</td>
+            <td>{{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.cidade.estado.uf}} /
+              {{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.nmRua}}-{{item.pessoa.endereco.bairro}}</td>
+            <td>
+              <button (click)="editar(item)" class="btn edit">Editar</button>
+              <button (click)="excluir(item)" class="btn del">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
+            directionLinks="true" autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Por Página</span>
+          </div>
+        </div>
+      </form>
+    </card>
+  </div>
 </div>
