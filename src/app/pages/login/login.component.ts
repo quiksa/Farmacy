@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import swal from 'sweetalert2';
-import { NotificationComponent } from '../ui/components/notification/notification.component';
+import { Md5 } from 'ts-md5/dist/md5';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,27 +15,39 @@ export class LoginComponent implements OnInit {
   private unidadeList
   private login;
   private pass;
+  private idUnidade
 
-  constructor(private auth: LoginService) {
+  constructor(private auth: LoginService, private router: Router) {
     this.fullImagePath = './assets/images/logo.png'
   }
 
   ngOnInit() {
+    this.loadUnidades()
+  }
+
+  loadUnidades() {
     this.auth.loadUnidades()
-    .subscribe(res => {
-      this.unidadeList = res
-    }, err => {
-      console.log("Error occured");
-    });
+      .subscribe(res => {
+        this.unidadeList = res
+      }, err => {
+        console.log("Error occured");
+      });
   }
 
   signin() {
-    if (this.login && this.pass) {
-      if (this.auth.getUserDetails(this.login, this.pass)) {
+    if (this.login && this.pass && this.idUnidade) {
+      let passmd5 = Md5.hashStr(this.pass)
+      this.auth.login(this.login, passmd5, this.idUnidade).subscribe(res => {
+        let key = 'user';
+        let value = JSON.stringify(res)
+        sessionStorage.setItem(key, value);
+        this.router.navigate(['/pages/index'])
+      }, err => {
+        
+        console.log("Login Error");
+      });
 
-      } else {
 
-      }
     } else if (!this.login && !this.pass) {
       swal({
         type: 'error',

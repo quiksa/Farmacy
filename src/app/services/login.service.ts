@@ -21,28 +21,11 @@ export class LoginService {
     return this.http.get(this.url + '/unidade').map((response: Response) => response.json())
   }
 
-  getUserDetails(username, password) {
-    let parametro = JSON.stringify({
-      "idFuncionario": null,
-      "idPessoa": null,
-      "login": username,
-      "senha": password,
-      "idUnidade": null,
-      "idCargo": null,
-      "dhinsert": null,
-      "dhdesativacao": null
-    });
-    let headers = new Headers({ 'Content-type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.post(this.url + '/funcionario/signin/', parametro, options)
-      .map((response: Response) => response.json())
-      .subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log("Error occured");
-        });
+  login(username, password, idunidade) {
+    return this.http.post(this.url + '/funcionario/signin/', {
+      idunidade: idunidade,
+      login: username,
+      senha: password
+    }).map((response: Response) => response.json())
   }
 }

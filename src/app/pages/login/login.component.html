@@ -20,7 +20,7 @@
         <i class="fa fa-user fa-fw"></i>
       </span>
       <ngx-select [allowClear]="true" [items]="unidadeList" [(ngModel)]="idUnidade"
-        optionTextField="nmRduzido" placeholder="Selecione a Unidade">
+        optionTextField="nmRduzido" optionValueField="idUnidade" placeholder="Selecione a Unidade">
       </ngx-select>
     </div>
     <button (click)="signin()" class="btn btn-lg btn-primary">Login</button>

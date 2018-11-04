@@ -55,6 +55,7 @@ export class FuncionarioComponent implements OnInit {
   private nrtelefone;
   private itemIdEstado;
   private itemIdCidade;
+  private passaux;
   private estadoList;
   private cidadeList;
   private cargoList;
@@ -141,6 +142,7 @@ export class FuncionarioComponent implements OnInit {
     this.itemIdEstado = null
     this.idfuncionario = null
     this.itemIdCidade = null
+    this.passaux = null
   }
 
   editar(item) {
@@ -161,6 +163,8 @@ export class FuncionarioComponent implements OnInit {
     this.idfuncionario = item.idFuncionario
     this.idcargo = item.cargo.idCargo
     this.idunidade = item.unidade.idUnidade
+    this.passaux = item.senha
+    this.senha = item.senha
   }
 
   findIndexToUpdate(newItem) {
@@ -201,8 +205,12 @@ export class FuncionarioComponent implements OnInit {
       funcionario.nmrua = this.nmrua
       funcionario.nrcpf = this.nrcpf
       funcionario.nrtelefone = this.nrtelefone
-      let passmd5 = Md5.hashStr(this.senha)
-      funcionario.senha = passmd5;
+      if (this.senha != this.passaux) {
+        let passmd5 = Md5.hashStr(this.senha)
+        funcionario.senha = passmd5;
+      } else {
+        funcionario.senha = this.senha;
+      }
       funcionario.sgsexo = this.sgsexo
       funcionario.usuario = this.usuario
       this.cadastroservice.saveOrUpdateFuncionario(funcionario).subscribe(res => {

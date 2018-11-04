@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch'
 import { Unidade } from '../pages/form/components/unidade/unidade.component';
@@ -90,7 +90,7 @@ export class CadastroService {
     })
   }
 
-  loadFuncionarios(){
+  loadFuncionarios() {
     return this.http.get(url + '/funcionario/load').map((response: Response) => response.json())
   }
 
@@ -103,7 +103,7 @@ export class CadastroService {
   }
 
   getEstados(filter): Observable<Array<any>> {
-    return this.http.get(url + '/estado').map((response: Response) => response.json())
+    return this.http.get(url + '/estado/load').map((response: Response) => response.json())
     //return this.http.get(this.url + '/estado').map((res) => { return this.extractFilteredData(res, filter) }).catch(this.handleError);
   }
 
