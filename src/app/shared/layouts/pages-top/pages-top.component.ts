@@ -8,8 +8,9 @@ import { GlobalService } from '../../services/global.service';
 })
 export class PagesTopComponent {
   avatarImgSrc: string = 'assets/images/avatar.png';
-  userName: string = 'Folisise Chosielie';
-  userPost: string = 'Musician, Player';
+  userName: string = sessionStorage.getItem('username') 
+  userjob: string = sessionStorage.getItem('userjob')
+  unidade: string = sessionStorage.getItem('unidadelog')  
 
 
   sidebarToggle: boolean = true;

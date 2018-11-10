@@ -5,13 +5,33 @@ import 'rxjs/add/operator/catch'
 import { Unidade } from '../pages/form/components/unidade/unidade.component';
 import { Cliente } from '../pages/form/components/cliente/cliente.component';
 import { Funcionario } from '../pages/form/components/funcionario/funcionario.component';
+import { Fornecedor } from '../pages/form/components/fornecedor/fornecedor.component';
 
 const url = 'http://localhost:8080';
 
 @Injectable()
 export class CadastroService {
+  
 
   constructor(private http: Http) { }
+
+  saveOrUpdateFornecedor(fornecedor: Fornecedor): Observable<any> {
+    return this.http.post(url + '/fornecedor/insertOrUpdadeFornecedor', {
+      idcidade: fornecedor.idcidade,
+      idEndereco: fornecedor.idendereco,
+      idpessoa: fornecedor.idpessoa,
+      bairro: fornecedor.bairro,
+      dscomplemento: fornecedor.dscomplemento,
+      dsFornecedor: fornecedor.dsfornecedor,
+      email: fornecedor.email,
+      nmPessoa: fornecedor.nmpessoa,
+      nmrua: fornecedor.nmrua,
+      nrtelefone: fornecedor.nrtelefone,
+      cnpj: fornecedor.cnpj,
+      nrTelefone: fornecedor.nrtelefone
+    })
+  }
+
 
   saveOrUpdateUnidade(unidade: Unidade): Observable<any> {
     return this.http.post(url + '/unidade/insertOrUpdadeUnidade', {
@@ -36,10 +56,22 @@ export class CadastroService {
     return this.http.get(url + '/unidade').map((response: Response) => response.json())
   }
 
+  loadFornecedor(): any {
+    return this.http.get(url + '/fornecedor').map((response: Response) => response.json())
+  }
+
   deleteUnidade(idunidade) {
     return this.http.get(url + '/unidade/deletaUnidade', {
       params: {
         idunidade: idunidade,
+      }
+    })
+  }
+
+  deleteFornecedor(idFornecedor) {
+    return this.http.get(url + '/fornecedor/deleteFornecedor', {
+      params: {
+        idFornecedor: idFornecedor,
       }
     })
   }
@@ -58,7 +90,7 @@ export class CadastroService {
       email: funcionario.email,
       nmPessoa: funcionario.nmpessoa,
       nmrua: funcionario.nmrua,
-      nrCpf: funcionario.nrcpf,
+      nrcpf: funcionario.nrcpf,
       nrTelefone: funcionario.nrtelefone,
       senha: funcionario.senha,
       sgsexo: funcionario.sgsexo,

@@ -154,7 +154,7 @@ export class FuncionarioComponent implements OnInit {
     this.nmrua = item.pessoa.endereco.nmRua
     this.dscomplemento = item.pessoa.endereco.dsComplemento
     this.dtnascimento = item.pessoa.dtnascimento
-    this.nrcpf = item.pessoa.nrcpf
+    this.nrcpf = item.nrcpf
     this.bairro = item.pessoa.endereco.bairro
     this.nrtelefone = item.pessoa.nrtelefone
     this.itemIdEstado = item.pessoa.endereco.cidade.estado.idEstado
@@ -165,6 +165,7 @@ export class FuncionarioComponent implements OnInit {
     this.idunidade = item.unidade.idUnidade
     this.passaux = item.senha
     this.senha = item.senha
+    this.procuraCidades(this.itemIdEstado)
   }
 
   findIndexToUpdate(newItem) {
@@ -215,12 +216,16 @@ export class FuncionarioComponent implements OnInit {
       funcionario.usuario = this.usuario
       this.cadastroservice.saveOrUpdateFuncionario(funcionario).subscribe(res => {
         let newItem = (JSON.parse(res._body))
-        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idFuncionario);
-        if (updateItem) {
-          let index = this.tableData.indexOf(updateItem);
-          this.tableData[index] = newItem;
-        } else {
+        if (this.tableData) {
           this.tableData.push(newItem)
+        } else {
+          let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idFuncionario);
+          if (updateItem) {
+            let index = this.tableData.indexOf(updateItem);
+            this.tableData[index] = newItem;
+          } else {
+            this.tableData.push(newItem)
+          }
         }
         this.clean();
       }, err => {
@@ -228,5 +233,9 @@ export class FuncionarioComponent implements OnInit {
       })
 
     }
+  }
+
+  excluir(item) {
+    console.log(item)
   }
 }

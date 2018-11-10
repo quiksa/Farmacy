@@ -119,7 +119,7 @@
         <tbody>
           <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td>{{item.pessoa.nmPessoa}}</td>
-            <td>{{item.pessoa.nrcpf}}</td>
+            <td>{{item.nrcpf}}</td>
             <td>{{item.pessoa.nrtelefone}}</td>
             <td>{{item.cargo.nmCargo}}</td>
             <td>{{item.unidade.nmRduzido}}</td>

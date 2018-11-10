@@ -60,7 +60,7 @@ export let MENU_ITEM = [
     },
     {
         path: 'form',
-        title: 'Cadastro',
+        title: 'Cadastros',
         icon: 'cog',
         children: [
             {
@@ -94,6 +94,10 @@ export let MENU_ITEM = [
             {
                 path: 'form-cargo',
                 title: 'Cargo'
+            },
+            {
+                path: 'form-fornecedor',
+                title: 'Fornecedor'
             }
         ]
     },

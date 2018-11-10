@@ -66,12 +66,16 @@ export class CargoComponent implements OnInit {
 
       this.cadastroservice.saveOrUpdateCargo(cargo).subscribe(res => {
         let newItem = (JSON.parse(res._body))
-        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idCargo);
-        if (updateItem) {
-          let index = this.tableData.indexOf(updateItem);
-          this.tableData[index] = newItem;
-        } else {
+        if (this.tableData) {
           this.tableData.push(newItem)
+        } else {
+          let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idCargo);
+          if (updateItem) {
+            let index = this.tableData.indexOf(updateItem);
+            this.tableData[index] = newItem;
+          } else {
+            this.tableData.push(newItem)
+          }
         }
         this.clean();
       }, err => {

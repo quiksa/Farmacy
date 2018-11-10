@@ -1,12 +1,13 @@
+<!-- <form class="form-horizontal" #forForm="ngForm" [formGroup]="formulario" (ngSubmit)="submit()"> -->
 <div class="form-group">
-  <div class="row">
+  <div class="row show-grid">
     <div class="col-md-4">
       <label class="control-label">Nome</label>
-      <input type="text" class="form-control" [(ngModel)]="nmunidade" placeholder="Nome da Unidade">
+      <input type="text" [(ngModel)]="nmpessoa" class="form-control" placeholder="Nome">
     </div>
     <div class="col-md-4">
-      <label class="control-label">Nome Reduzido</label>
-      <input type="email" class="form-control" [(ngModel)]="nmreduzido" placeholder="Nome Reduzido">
+      <label class="control-label">E-mail</label>
+      <input type="email" class="form-control" [(ngModel)]="email" placeholder="E-mail">
     </div>
     <div class="col-md-4">
       <label class="control-label">CNPJ</label>
@@ -14,71 +15,80 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row show-grid">
+    <div class="col-md-4">
+      <label class="control-label">Telefone</label>
+      <input type="number" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
+    </div>
     <div class="col-md-4 magemtop">
       Estado
-      <ngx-select [allowClear]="true" [items]="estadoList" [(ngModel)]="itemIdEstado" optionValueField="idEstado"
+      <ngx-select [allowClear]="true" [(ngModel)]="itemIdEstado" [items]="estadoList" optionValueField="idEstado"
         (select)="selectedEstado($event)" optionTextField="nmEstado" placeholder="Nenhum estado selecionado">
       </ngx-select>
     </div>
     <div class="col-md-4 magemtop">
       Cidade
-      <ngx-select [allowClear]="true" [items]="cidadeList" optionValueField="idCidade" [(ngModel)]="idcidade"
+      <ngx-select [allowClear]="true" [items]="cidadeList" optionValueField="idCidade" [(ngModel)]="itemIdCidade"
         optionTextField="nmCidade" placeholder="Nenhuma cidade selecionada">
       </ngx-select>
     </div>
+  </div>
+
+  <div class="row">
+
     <div class="col-md-4">
       <label class="control-label">Rua</label>
       <input type="text" class="form-control" [(ngModel)]="nmrua" placeholder="Nome da rua">
     </div>
-  </div>
 
-  <div class="row">
     <div class="col-md-4">
       <label class="control-label">Bairro</label>
       <input type="text" class="form-control" [(ngModel)]="bairro" placeholder="Nome do Bairro">
     </div>
+
     <div class="col-md-4">
       <label class="control-label">Complemento</label>
       <input type="text" class="form-control" [(ngModel)]="dscomplemento" placeholder="Nome Complemento">
     </div>
+
     <div class="col-md-4">
       <label class="control-label">Descrição</label>
-      <textarea type="text" class="form-control" [(ngModel)]="dsunidade" placeholder="Descrição"></textarea>
+      <textarea type="text" class="form-control" [(ngModel)]="dsfornecedor" placeholder="Descrição Fornecedor"></textarea>
     </div>
+
   </div>
 
   <div class="row">
     <div class="col-md-4" style="margin-top: 10px">
+      <!-- <button type="submit" class="btn btn-primary">Salvar</button> -->
       <button (click)="cadastra()" class="btn btn-primary">Salvar</button>
       <button (click)="clean()" class="btn btn-primary limpar">Limpar</button>
     </div>
   </div>
 </div>
+<!-- </form> -->
 
 <div class="row">
   <div class="col-md-12">
-    <card cardTitle="Unidades">
+    <card cardTitle="Fornecedor">
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Descrição</th>
-            <th>Nome Reduzido</th>
             <th>CNPJ</th>
-            <th>Estado</th>
-            <th>Endereco</th>
+            <th>Descrição</th>
+            <th>E-mail</th>
+            <th>Endereço</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
-            <td>{{item.nmUnidade}}</td>
-            <td>{{item.dsUnidade}}</td>
-            <td>{{item.nmRduzido}}</td>
+            <td>{{item.pessoa.nmPessoa}}</td>
             <td>{{item.cnpj}}</td>
-            <td>{{item.endereco.cidade.nmCidade}}-{{item.endereco.cidade.estado.uf}}</td>
-            <td>{{item.endereco.nmRua}}-{{item.endereco.bairro}}-{{item.endereco.dsComplemento}}</td>
+            <td>{{item.dsFornecedor}}</td>
+            <td>{{item.pessoa.email}}</td>
+            <td>{{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.cidade.estado.uf}} / {{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.nmRua}}-{{item.pessoa.endereco.bairro}}</td>
             <td>
               <button (click)="editar(item)" class="btn edit">Editar</button>
               <button (click)="excluir(item)" class="btn del">Excluir</button>
@@ -88,9 +98,9 @@
       </table>
       <form class="pagination-wrapper">
         <div class="form-group pages">
-          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
-            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-            screenReaderCurrentLabel="You're on page">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
+            directionLinks="true" autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
           </pagination-controls>
         </div>
         <div class="form-group options pages">
@@ -111,4 +121,3 @@
     </card>
   </div>
 </div>
-

@@ -38,12 +38,13 @@ export class LoginComponent implements OnInit {
     if (this.login && this.pass && this.idUnidade) {
       let passmd5 = Md5.hashStr(this.pass)
       this.auth.login(this.login, passmd5, this.idUnidade).subscribe(res => {
-        let key = 'user';
-        let value = JSON.stringify(res)
-        sessionStorage.setItem(key, value);
+        sessionStorage.setItem('username', res.pessoa.nmPessoa)
+        sessionStorage.setItem('userjob', res.cargo.nmCargo)
+        sessionStorage.setItem('unidadelog',res.unidade.nmRduzido)
+        sessionStorage.setItem('user', JSON.stringify(res));
         this.router.navigate(['/pages/index'])
       }, err => {
-        
+
         console.log("Login Error");
       });
 

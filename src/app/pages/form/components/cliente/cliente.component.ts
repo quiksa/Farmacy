@@ -131,12 +131,16 @@ export class ClienteComponent implements OnInit {
       cliente.nrtelefone = this.nrtelefone;
       this.cadastroservice.saveOrUpdateCliente(cliente).subscribe(res => {
         let newItem = (JSON.parse(res._body))
-        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idCliente);
-        if (updateItem) {
-          let index = this.tableData.indexOf(updateItem);
-          this.tableData[index] = newItem;
-        } else {
+        if (this.tableData) {
           this.tableData.push(newItem)
+        } else {
+          let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idCliente);
+          if (updateItem) {
+            let index = this.tableData.indexOf(updateItem);
+            this.tableData[index] = newItem;
+          } else {
+            this.tableData.push(newItem)
+          }
         }
         this.clean();
       }, err => {
@@ -165,6 +169,7 @@ export class ClienteComponent implements OnInit {
     this.nrtelefone = item.pessoa.nrtelefone
     this.itemIdEstado = item.pessoa.endereco.cidade.estado.idEstado
     this.itemIdCidade = item.pessoa.endereco.cidade.idCidade
+    this.procuraCidades(this.itemIdEstado)
   }
 
   excluir(item) {

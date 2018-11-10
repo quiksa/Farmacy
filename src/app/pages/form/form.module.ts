@@ -15,12 +15,13 @@ import { SingleSelectComponent } from './components/ng2-select/single-select/sin
 import { MultipleSelectComponent } from './components/ng2-select/multiple-select/multiple-select.component';
 import { ChildrenSelectComponent } from './components/ng2-select/children-select/children-select.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
-import { FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FuncionarioComponent } from './components/funcionario/funcionario.component';
 import { UnidadeComponent } from './components/unidade/unidade.component';
 import { CargoComponent } from './components/cargo/cargo.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
 
 @NgModule({
     imports: [
@@ -30,6 +31,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
         SelectModule,
         NgxSelectModule,
         FormsModule,
+        ReactiveFormsModule,
         NgxPaginationModule,
         routing
     ],
@@ -45,7 +47,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
         ClienteComponent,
         FuncionarioComponent,
         UnidadeComponent,
-        CargoComponent
+        CargoComponent,
+        FornecedorComponent
     ]
 })
 export class FormModule { }
