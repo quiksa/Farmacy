@@ -6,14 +6,33 @@ import { Unidade } from '../pages/form/components/unidade/unidade.component';
 import { Cliente } from '../pages/form/components/cliente/cliente.component';
 import { Funcionario } from '../pages/form/components/funcionario/funcionario.component';
 import { Fornecedor } from '../pages/form/components/fornecedor/fornecedor.component';
+import { Estoque } from '../pages/form/components/estoque/estoque.component';
+import { Mercadoria } from '../pages/form/components/mercadoria/mercadoria.component';
 
 const url = 'http://localhost:8080';
 
 @Injectable()
 export class CadastroService {
-  
 
   constructor(private http: Http) { }
+
+  saveOrUpdateMercadoria(mercadoria: Mercadoria): any {
+    return this.http.post(url + '/mercadoria/insertOrUpdadeMercadoria', {
+      idMercadoria: mercadoria.idmercadoria,
+      nmMercadoria: mercadoria.nmmercadoria,
+      dsComplemento: mercadoria.dscomplemento,
+      idfornecedor: mercadoria.idfornecedor,
+      idcategoria: mercadoria.idcategoria
+    })
+  }
+
+  saveOrUpdateEstoque(estoque: Estoque): any {
+    return this.http.post(url + '/estoque/insertOrUpdadeEstoque', {
+      idEstoque: estoque.idestoque,
+      idUnidade: estoque.idunidade,
+      dsEstoque: estoque.dsestoque
+    })
+  }
 
   saveOrUpdateFornecedor(fornecedor: Fornecedor): Observable<any> {
     return this.http.post(url + '/fornecedor/insertOrUpdadeFornecedor', {
@@ -48,6 +67,14 @@ export class CadastroService {
     })
   }
 
+  loadMercadoria(): any {
+    return this.http.get(url + '/mercadoria/load').map((response: Response) => response.json())
+  }
+
+  loadEstoque() {
+    return this.http.get(url + '/estoque/load').map((response: Response) => response.json())
+  }
+
   loadClientes() {
     return this.http.get(url + '/cliente').map((response: Response) => response.json())
   }
@@ -60,6 +87,27 @@ export class CadastroService {
     return this.http.get(url + '/fornecedor').map((response: Response) => response.json())
   }
 
+  loadCategoria(): any {
+    return this.http.get(url + '/categoria/load').map((response: Response) => response.json())
+  }
+
+  loadFuncionarios() {
+    return this.http.get(url + '/funcionario/load').map((response: Response) => response.json())
+  }
+
+  loadCargos() {
+    return this.http.get(url + '/cargo/load').map((response: Response) => response.json())
+  }
+
+  getCidade(estado) {
+    return this.http.get(url + '/cidade/estado=' + estado).map((response: Response) => response.json())
+  }
+
+  getEstados(filter): Observable<Array<any>> {
+    return this.http.get(url + '/estado/load').map((response: Response) => response.json())
+    //return this.http.get(this.url + '/estado').map((res) => { return this.extractFilteredData(res, filter) }).catch(this.handleError);
+  }
+
   deleteUnidade(idunidade) {
     return this.http.get(url + '/unidade/deletaUnidade', {
       params: {
@@ -68,10 +116,42 @@ export class CadastroService {
     })
   }
 
+  deleteEstoque(idEstoque) {
+    return this.http.get(url + '/estoque/deleteEstoque', {
+      params: {
+        idestoque: idEstoque
+      }
+    })
+  }
+
+  deleteCategoria(idCategoria: any): any {
+    return this.http.get(url + '/categoria/deleteCategoria', {
+      params: {
+        idCategoria: idCategoria,
+      }
+    })
+  }
+
   deleteFornecedor(idFornecedor) {
     return this.http.get(url + '/fornecedor/deleteFornecedor', {
       params: {
         idFornecedor: idFornecedor,
+      }
+    })
+  }
+
+  deleteCliente(idcliente) {
+    return this.http.get(url + '/cliente/deleteCliente', {
+      params: {
+        idcliente: idcliente,
+      }
+    })
+  }
+
+  deleteCargo(idcargo) {
+    return this.http.get(url + '/cargo/deleteCargo', {
+      params: {
+        idcargo: idcargo,
       }
     })
   }
@@ -98,22 +178,6 @@ export class CadastroService {
     })
   }
 
-  deleteCliente(idcliente) {
-    return this.http.get(url + '/cliente/deleteCliente', {
-      params: {
-        idcliente: idcliente,
-      }
-    })
-  }
-
-  deleteCargo(idcargo) {
-    return this.http.get(url + '/cargo/deleteCargo', {
-      params: {
-        idcargo: idcargo,
-      }
-    })
-  }
-
   saveOrUpdateCargo(cargo): Observable<any> {
     return this.http.post(url + '/cargo/insertOrUpdadeCargo', {
       idCargo: cargo.idcargo,
@@ -122,21 +186,12 @@ export class CadastroService {
     })
   }
 
-  loadFuncionarios() {
-    return this.http.get(url + '/funcionario/load').map((response: Response) => response.json())
-  }
-
-  loadCargos() {
-    return this.http.get(url + '/cargo/load').map((response: Response) => response.json())
-  }
-
-  getCidade(estado) {
-    return this.http.get(url + '/cidade/estado=' + estado).map((response: Response) => response.json())
-  }
-
-  getEstados(filter): Observable<Array<any>> {
-    return this.http.get(url + '/estado/load').map((response: Response) => response.json())
-    //return this.http.get(this.url + '/estado').map((res) => { return this.extractFilteredData(res, filter) }).catch(this.handleError);
+  saveOrUpdateCategoria(categoria): Observable<any> {
+    return this.http.post(url + '/categoria/insertOrUpdadeCategoria', {
+      idCategoria: categoria.idcategoria,
+      nmCategoria: categoria.nmcategoria,
+      dsCategoria: categoria.dscategoria
+    })
   }
 
   saveOrUpdateCliente(cliente: Cliente): Observable<any> {

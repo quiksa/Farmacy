@@ -1,36 +1,40 @@
 import { CadastroService } from '../../../../services/cadastro.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import swal from 'sweetalert2';
 import 'rxjs/add/operator/delay';
 
-export class Cargo {
-  idcargo: string;
-  nmcargo: string;
-  dscargo: string;
+export class Estoque {
+  idunidade: string
+  idestoque: string
+  dsestoque: string
 }
 
 @Component({
-  selector: 'app-cargo',
-  templateUrl: './cargo.component.html',
-  styleUrls: ['./cargo.component.scss']
+  selector: 'app-estoque',
+  templateUrl: './estoque.component.html',
+  styleUrls: ['./estoque.component.scss'],
 })
-export class CargoComponent implements OnInit {
+export class EstoqueComponent implements OnInit {
   tableData: Array<any>;
   pageSize = 10;
   pageNumber = 1;
 
+  private idunidade
+  private idestoque
+  private dsestoque
+  private unidadeList
+  private itemIdUnidade
+
   constructor(private cadastroservice: CadastroService) { }
 
-  private idcargo;
-  private nmcargo;
-  private dscargo;
 
   ngOnInit() {
     this.loadData();
+    this.loadUnidades()
   }
 
   loadData() {
-    this.cadastroservice.loadCargos()
+    this.cadastroservice.loadEstoque()
       .subscribe(res => {
         this.tableData = res
       }, err => {
@@ -38,35 +42,41 @@ export class CargoComponent implements OnInit {
       });;
   }
 
+  loadUnidades() {
+    this.cadastroservice.loadUnidades()
+      .subscribe(res => {
+        this.unidadeList = res
+      }, err => {
+        console.log("Error occured");
+      });
+  }
+
   pageChanged(pN: number): void {
     this.pageNumber = pN;
   }
 
   clean() {
-    this.idcargo = null;
-    this.nmcargo = null;
-    this.dscargo = null;
+    this.idunidade = null
+    this.idestoque = null
+    this.dsestoque = null
+    this.itemIdUnidade = null
   }
 
-
-  ///METODO PARA CADASTRAR
-
   cadastra() {
-    if (!this.nmcargo || !this.dscargo) {
+    if (!this.dsestoque || !this.idunidade) {
       swal({
         type: 'error',
         title: 'Oops...',
         text: 'Há campos vazios, verifique por favor.',
       });
     } else {
-      let cargo = new Cargo();
-      cargo.idcargo = this.idcargo;
-      cargo.nmcargo = this.nmcargo;
-      cargo.dscargo = this.dscargo;
-
-      this.cadastroservice.saveOrUpdateCargo(cargo).subscribe(res => {
+      let estoque = new Estoque();
+      estoque.dsestoque = this.dsestoque
+      estoque.idestoque = this.idestoque
+      estoque.idunidade = this.idunidade
+      this.cadastroservice.saveOrUpdateEstoque(estoque).subscribe(res => {
         let newItem = (JSON.parse(res._body))
-        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idCargo);
+        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idEstoque);
         if (updateItem) {
           let index = this.tableData.indexOf(updateItem);
           this.tableData[index] = newItem;
@@ -81,19 +91,20 @@ export class CargoComponent implements OnInit {
   }
 
   findIndexToUpdate(newItem) {
-    return newItem.idCargo === this;
+    return newItem.idEstoque === this;
   }
 
   editar(item) {
-    this.idcargo = item.idCargo;
-    this.nmcargo = item.nmCargo;
-    this.dscargo = item.dsCargo;
+    this.idunidade = item.unidade.idUnidade
+    this.idestoque = item.idEstoque
+    this.dsestoque = item.dsEstoque
+    this.itemIdUnidade = item.unidade.idUnidade
   }
 
   excluir(item) {
     swal({
-      title: 'Excluir Cargo',
-      text: 'Tem certeza que deseja excluir o Cargo?',
+      title: 'Excluir Estoque',
+      text: 'Tem certeza que deseja excluir a estoque?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -101,7 +112,7 @@ export class CargoComponent implements OnInit {
       confirmButtonText: 'Sim, Excluir!'
     }).then((result) => {
       if (result.value) {
-        this.cadastroservice.deleteCargo(item.idCargo).subscribe(res => {
+        this.cadastroservice.deleteEstoque(item.idEstoque).subscribe(res => {
           const index: number = this.tableData.indexOf(item);
           if (index !== -1) {
             this.tableData.splice(index, 1);

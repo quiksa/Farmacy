@@ -98,6 +98,18 @@ export let MENU_ITEM = [
             {
                 path: 'form-fornecedor',
                 title: 'Fornecedor'
+            },
+            {
+                path: 'form-estoque',
+                title: 'Estoque'
+            },
+            {
+                path: 'form-categoria',
+                title: 'Categoria'
+            },
+            {
+                path: 'form-mercadoria',
+                title: 'Mercadoria'
             }
         ]
     },

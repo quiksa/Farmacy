@@ -22,6 +22,9 @@ import { UnidadeComponent } from './components/unidade/unidade.component';
 import { CargoComponent } from './components/cargo/cargo.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
+import { EstoqueComponent } from './components/estoque/estoque.component';
+import { CategoriaComponent } from './components/categoria/categoria.component';
+import { MercadoriaComponent } from './components/mercadoria/mercadoria.component';
 
 @NgModule({
     imports: [
@@ -48,7 +51,10 @@ import { FornecedorComponent } from './components/fornecedor/fornecedor.componen
         FuncionarioComponent,
         UnidadeComponent,
         CargoComponent,
-        FornecedorComponent
+        FornecedorComponent,
+        EstoqueComponent,
+        CategoriaComponent,
+        MercadoriaComponent
     ]
 })
 export class FormModule { }

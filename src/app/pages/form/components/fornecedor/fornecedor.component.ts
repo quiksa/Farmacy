@@ -192,16 +192,12 @@ export class FornecedorComponent implements OnInit {
       fornecedor.nrtelefone = this.nrtelefone
       this.cadastroservice.saveOrUpdateFornecedor(fornecedor).subscribe(res => {
         let newItem = (JSON.parse(res._body))
-        if (this.tableData) {
-          this.tableData.push(newItem)
+        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idFornecedor);
+        if (updateItem) {
+          let index = this.tableData.indexOf(updateItem);
+          this.tableData[index] = newItem;
         } else {
-          let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idFornecedor);
-          if (updateItem) {
-            let index = this.tableData.indexOf(updateItem);
-            this.tableData[index] = newItem;
-          } else {
-            this.tableData.push(newItem)
-          }
+          this.tableData.push(newItem)
         }
         this.clean();
       }, err => {
