@@ -1,23 +1,35 @@
 <div class="form-group">
   <div class="row">
     <div class="col-md-4">
-      <label class="control-label">Nome</label>
-      <input type="text" class="form-control" [(ngModel)]="nmmercadoria" placeholder="Nome">
-    </div>
-    <div class="col-md-4">
-      <label class="control-label">Categoria</label>
-      <ngx-select [allowClear]="true" [items]="categoriaList" optionValueField="idCategoria" [(ngModel)]="idcategoria"
-        optionTextField="nmCategoria" placeholder="Ex: Medicamento">
+      <label class="control-label">Unidade/Estoque</label>
+      <ngx-select [allowClear]="true" [items]="estoqueList" optionValueField="idEstoque" [(ngModel)]="idestoque"
+        optionTextField="nome" placeholder="Ex: Estoque 1">
       </ngx-select>
     </div>
     <div class="col-md-4">
-        <label class="control-label">Codigo Barras</label>
-        <input type="number" class="form-control" [(ngModel)]="codbarras" placeholder="123456789">
-      </div>
-    <div class="col-md-4">
-      <label class="control-label">Descrição</label>
-      <textarea type="text" class="form-control" [(ngModel)]="dscomplemento" placeholder="Descrição"></textarea>
+      <label class="control-label">Mercadoria</label>
+      <ngx-select [allowClear]="true" [items]="mercadoriaList" optionValueField="idMercadoria" [(ngModel)]="idmercadoria"
+        optionTextField="nmMercadoria" placeholder="Ex: Dipirona">
+      </ngx-select>
     </div>
+    <div class="col-md-4">
+      <label class="control-label">Fornecedor</label>
+      <ngx-select [allowClear]="true" [items]="fornecedorList" optionValueField="idFornecedor" [(ngModel)]="idfornecedor"
+        optionTextField="nmPessoa" placeholder="Ex: Dipirona">
+      </ngx-select>
+    </div>
+    <div class="col-md-4">
+      <label class="control-label">Quantidade</label>
+      <input type="number" class="form-control" [(ngModel)]="qtmovimentomercadoria" placeholder="Ex: 100">
+    </div>
+    <div class="col-md-4">
+      <label class="control-label">Valor</label>
+      <input type="number" class="form-control" [(ngModel)]="vlmercadoria" placeholder="Ex: 12.50">
+    </div>
+    <div class="col-md-4">
+        <label class="control-label">Lote</label>
+        <input type="text" class="form-control" [(ngModel)]="dslote" placeholder="Ex: Lote 12">
+      </div>
   </div>
   <div class="row">
     <div class="col-md-4" style="margin-top: 10px">

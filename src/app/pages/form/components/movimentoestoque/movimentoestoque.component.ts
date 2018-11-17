@@ -3,63 +3,76 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import swal from 'sweetalert2';
 import 'rxjs/add/operator/delay';
 
-export class Mercadoria {
+export class MovimentoMercadoria {
+  idfornecedor: string
+  idestoque: string
+  idmovimentoestoque: string
+  vlmercadoria: string
+  qtmovimentomercadoria: string
   idmercadoria: string
-  nmmercadoria: string
-  idcategoria: string
-  dscomplemento: string
-  codbarras: string
+  dslote: string
 }
 
 @Component({
-  selector: 'app-mercadoria',
-  templateUrl: './mercadoria.component.html',
-  styleUrls: ['./mercadoria.component.scss'],
+  selector: 'app-movimentoestoque',
+  templateUrl: './movimentoestoque.component.html',
+  styleUrls: ['./movimentoestoque.component.scss'],
 })
-export class MercadoriaComponent implements OnInit {
+export class MovimentoEstoqueComponent implements OnInit {
   tableData: Array<any>;
   pageSize = 10;
   pageNumber = 1;
 
   private idmercadoria
-  private nmmercadoria
-  private idcategoria
-  private codbarras
-  private dscomplemento
-  private categoriaList
+  private idestoque
+  private vlmercadoria
+  private qtmovimentomercadoria
+  private idmovimentoestoque
+  private idfornecedor
+  private dslote
   private fornecedorList
+  private mercadoriaList
+  private estoqueList
 
   constructor(private cadastroservice: CadastroService) { }
 
 
   ngOnInit() {
     this.loadMercadoria()
-    this.loadCategoria()
     this.loadFornecedor()
+    this.loadEstoque()
+  }
+
+  loadEstoque() {
+    this.cadastroservice.loadEstoque()
+      .subscribe(res => {
+        this.estoqueList = res.map(data => {
+          data.nome = data.unidade.nmRduzido + '/' + data.dsEstoque
+          return data
+        })
+      }, err => {
+        console.log("Error occured");
+      });
   }
 
   loadMercadoria() {
     this.cadastroservice.loadMercadoria()
       .subscribe(res => {
-        this.tableData = res
+        this.mercadoriaList = res
       }, err => {
         console.log("Error occured");
       });
   }
 
-  loadCategoria() {
-    this.cadastroservice.loadCategoria()
-      .subscribe(res => {
-        this.categoriaList = res
-      }, err => {
-        console.log("Error occured");
-      });
-  }
+
 
   loadFornecedor() {
     this.cadastroservice.loadFornecedor()
       .subscribe(res => {
-        this.fornecedorList = res
+        this.fornecedorList = res.map(data => {
+          data.nmPessoa = data.pessoa.nmPessoa
+          return data
+        })
       }, err => {
         console.log("Error occured");
       });
@@ -71,27 +84,31 @@ export class MercadoriaComponent implements OnInit {
 
   clean() {
     this.idmercadoria = null
-    this.nmmercadoria = null
-    this.codbarras = null
-    this.idcategoria = null
-    this.dscomplemento = null
+    this.idestoque = null
+    this.idfornecedor = null
+    this.qtmovimentomercadoria = null
+    this.vlmercadoria = null
+    this.dslote = null
+    this.idmovimentoestoque = null
   }
 
   cadastra() {
-    if (!this.nmmercadoria || !this.codbarras || !this.idcategoria || !this.dscomplemento) {
+    if (!this.idmercadoria || !this.idestoque || !this.idfornecedor || !this.qtmovimentomercadoria || !this.vlmercadoria) {
       swal({
         type: 'error',
         title: 'Oops...',
         text: 'Há campos vazios, verifique por favor.',
       });
     } else {
-      let mercadoria = new Mercadoria();
-      mercadoria.dscomplemento = this.dscomplemento
-      mercadoria.idcategoria = this.idcategoria
-      mercadoria.codbarras = this.codbarras
-      mercadoria.idmercadoria = this.idmercadoria
-      mercadoria.nmmercadoria = this.nmmercadoria
-      this.cadastroservice.saveOrUpdateMercadoria(mercadoria).subscribe(res => {
+      let movimentomercadoria = new MovimentoMercadoria();
+      movimentomercadoria.idestoque = this.idestoque
+      movimentomercadoria.idfornecedor = this.idfornecedor
+      movimentomercadoria.idmercadoria = this.idmercadoria
+      movimentomercadoria.vlmercadoria = this.vlmercadoria
+      movimentomercadoria.dslote = this.dslote
+      movimentomercadoria.idmovimentoestoque = this.idmovimentoestoque
+      movimentomercadoria.qtmovimentomercadoria = this.qtmovimentomercadoria
+      this.cadastroservice.saveOrUpdateMovimentoMercadoria(movimentomercadoria).subscribe(res => {
         let newItem = (JSON.parse(res._body))
         let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idEstoque);
         if (updateItem) {
@@ -113,10 +130,6 @@ export class MercadoriaComponent implements OnInit {
 
   editar(item) {
     this.idmercadoria = item.idMercadoria
-    this.nmmercadoria = item.nmMercadoria
-    this.codbarras = item.codBarra
-    this.idcategoria = item.categoria.idCategoria
-    this.dscomplemento = item.dsComplemento
   }
 
   excluir(item) {

@@ -25,6 +25,7 @@ import { FornecedorComponent } from './components/fornecedor/fornecedor.componen
 import { EstoqueComponent } from './components/estoque/estoque.component';
 import { CategoriaComponent } from './components/categoria/categoria.component';
 import { MercadoriaComponent } from './components/mercadoria/mercadoria.component';
+import { MovimentoEstoqueComponent } from './components/movimentoestoque/movimentoestoque.component';
 
 @NgModule({
     imports: [
@@ -54,7 +55,8 @@ import { MercadoriaComponent } from './components/mercadoria/mercadoria.componen
         FornecedorComponent,
         EstoqueComponent,
         CategoriaComponent,
-        MercadoriaComponent
+        MercadoriaComponent,
+        MovimentoEstoqueComponent
     ]
 })
 export class FormModule { }

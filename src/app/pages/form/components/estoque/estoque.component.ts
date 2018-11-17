@@ -39,7 +39,7 @@ export class EstoqueComponent implements OnInit {
         this.tableData = res
       }, err => {
         console.log("Error occured");
-      });;
+      });
   }
 
   loadUnidades() {

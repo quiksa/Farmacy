@@ -12,6 +12,7 @@ import { FornecedorComponent } from './components/fornecedor/fornecedor.componen
 import { EstoqueComponent } from './components/estoque/estoque.component';
 import { CategoriaComponent } from './components/categoria/categoria.component';
 import { MercadoriaComponent } from './components/mercadoria/mercadoria.component';
+import { MovimentoEstoqueComponent } from './components/movimentoestoque/movimentoestoque.component';
 
 const childRoutes: Routes = [
     {
@@ -30,7 +31,8 @@ const childRoutes: Routes = [
             { path: 'form-fornecedor', component: FornecedorComponent },
             { path: 'form-estoque', component: EstoqueComponent },
             { path: 'form-categoria', component: CategoriaComponent },
-            { path: 'form-mercadoria', component: MercadoriaComponent }
+            { path: 'form-mercadoria', component: MercadoriaComponent },
+            { path: 'form-movimentoestoque', component: MovimentoEstoqueComponent }
         ]
     }
 ];

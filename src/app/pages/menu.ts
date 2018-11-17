@@ -101,7 +101,7 @@ export let MENU_ITEM = [
             },
             {
                 path: 'form-estoque',
-                title: 'Estoque'
+                title: 'Estoque Unidade'
             },
             {
                 path: 'form-categoria',
@@ -110,6 +110,10 @@ export let MENU_ITEM = [
             {
                 path: 'form-mercadoria',
                 title: 'Mercadoria'
+            },
+            {
+                path: 'form-movimentoestoque',
+                title: 'Entrada Estoque'
             }
         ]
     },

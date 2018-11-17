@@ -8,11 +8,13 @@ import { Funcionario } from '../pages/form/components/funcionario/funcionario.co
 import { Fornecedor } from '../pages/form/components/fornecedor/fornecedor.component';
 import { Estoque } from '../pages/form/components/estoque/estoque.component';
 import { Mercadoria } from '../pages/form/components/mercadoria/mercadoria.component';
+import { MovimentoMercadoria } from '../pages/form/components/movimentoestoque/movimentoestoque.component';
 
 const url = 'http://localhost:8080';
 
 @Injectable()
 export class CadastroService {
+
 
   constructor(private http: Http) { }
 
@@ -21,7 +23,7 @@ export class CadastroService {
       idMercadoria: mercadoria.idmercadoria,
       nmMercadoria: mercadoria.nmmercadoria,
       dsComplemento: mercadoria.dscomplemento,
-      idfornecedor: mercadoria.idfornecedor,
+      codBarra: mercadoria.codbarras,
       idcategoria: mercadoria.idcategoria
     })
   }
@@ -64,6 +66,19 @@ export class CadastroService {
       cnpj: unidade.cnpj,
       idCidade: unidade.idcidade,
       idendereco: unidade.idendereco
+    })
+  }
+
+  saveOrUpdateMovimentoMercadoria(movimentomercadoria: MovimentoMercadoria): any {
+    debugger
+    return this.http.post(url + '/movimentomercadoriaestoque/insertOrUpdadeMovimentoMercadoriaEstoque', {
+      idfornecedor: movimentomercadoria.idfornecedor,
+      idmercadoria: movimentomercadoria.idmercadoria,
+      idestoque: movimentomercadoria.idestoque,
+      idmovimentoestoque: movimentomercadoria.idmovimentoestoque,
+      dslote: movimentomercadoria.dslote,
+      qtMovimentoMercadoria: movimentomercadoria.qtmovimentomercadoria,
+      vlMovimentoMercadoria: movimentomercadoria.vlmercadoria
     })
   }
 
