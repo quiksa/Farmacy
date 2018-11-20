@@ -4,6 +4,7 @@ import swal from 'sweetalert2';
 import 'rxjs/add/operator/delay';
 
 export class MovimentoMercadoria {
+  idmovimentomercadoria: string
   idfornecedor: string
   idestoque: string
   idmovimentoestoque: string
@@ -30,6 +31,7 @@ export class MovimentoEstoqueComponent implements OnInit {
   private idmovimentoestoque
   private idfornecedor
   private dslote
+  private idmovimentomercadoria
   private fornecedorList
   private mercadoriaList
   private estoqueList
@@ -41,6 +43,7 @@ export class MovimentoEstoqueComponent implements OnInit {
     this.loadMercadoria()
     this.loadFornecedor()
     this.loadEstoque()
+    this.loadEntradaEstoque()
   }
 
   loadEstoque() {
@@ -64,6 +67,15 @@ export class MovimentoEstoqueComponent implements OnInit {
       });
   }
 
+
+  loadEntradaEstoque() {
+    this.cadastroservice.loadEntradaEstoque()
+      .subscribe(res => {
+        this.tableData = res
+      }, err => {
+        console.log("Error occured");
+      });
+  }
 
 
   loadFornecedor() {
@@ -108,6 +120,7 @@ export class MovimentoEstoqueComponent implements OnInit {
       movimentomercadoria.dslote = this.dslote
       movimentomercadoria.idmovimentoestoque = this.idmovimentoestoque
       movimentomercadoria.qtmovimentomercadoria = this.qtmovimentomercadoria
+      movimentomercadoria.idmovimentomercadoria = this.idmovimentomercadoria
       this.cadastroservice.saveOrUpdateMovimentoMercadoria(movimentomercadoria).subscribe(res => {
         let newItem = (JSON.parse(res._body))
         let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idEstoque);
@@ -129,13 +142,20 @@ export class MovimentoEstoqueComponent implements OnInit {
   }
 
   editar(item) {
-    this.idmercadoria = item.idMercadoria
+    this.idmercadoria = item.mercadoria.idMercadoria
+    this.idestoque = item.estoque.idEstoque
+    this.idfornecedor = item.fornecedor.idFornecedor
+    this.idmovimentoestoque = item.movimentoestoque.idMovimentoEstoque
+    this.idmovimentomercadoria = item.idMovimentoMercadoria
+    this.qtmovimentomercadoria = item.qtMovimentoMercadoria
+    this.vlmercadoria = item.vlMovimentoMercadoria
+    this.dslote = item.movimentoestoque.dsLote
   }
 
   excluir(item) {
     swal({
-      title: 'Excluir Estoque',
-      text: 'Tem certeza que deseja excluir a estoque?',
+      title: 'Excluir Movimentação',
+      text: 'Tem certeza que deseja excluir a movimentação no estoque?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -143,7 +163,7 @@ export class MovimentoEstoqueComponent implements OnInit {
       confirmButtonText: 'Sim, Excluir!'
     }).then((result) => {
       if (result.value) {
-        this.cadastroservice.deleteEstoque(item.idEstoque).subscribe(res => {
+        this.cadastroservice.deleteMovimentacao(item.idMovimentoMercadoria).subscribe(res => {
           const index: number = this.tableData.indexOf(item);
           if (index !== -1) {
             this.tableData.splice(index, 1);

@@ -41,25 +41,33 @@
 
 <div class="row">
   <div class="col-md-12">
-    <card cardTitle="Mercadoria">
+    <card cardTitle="Unidade/Estoque">
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Código</th>
+            <th>Código Mercadoria</th>
             <th>Nome</th>
-            <th>Descrição</th>
+            <th>Tipo movimentação</th>
             <th>Barras</th>
-            <th>Categoria</th>
+            <th>Estoque</th>
+            <th>Fornecedor</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+            <th>Lote</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
-            <td>{{item.idMercadoria}}</td>
-            <td>{{item.nmMercadoria}}</td>
-            <td>{{item.dsComplemento}}</td>
-            <td>{{item.codBarra}}</td>
-            <td>{{item.categoria.nmCategoria}}</td>
+            <td>{{item.mercadoria.idMercadoria}}</td>
+            <td>{{item.mercadoria.nmMercadoria}}</td>
+            <td>{{item.movimentoestoque.tpMovimentoEstoque}}</td>
+            <td>{{item.mercadoria.codBarra}}</td>
+            <td>{{item.estoque.unidade.nmRduzido}} - {{item.estoque.dsEstoque}}</td>
+            <td>{{item.fornecedor.pessoa.nmPessoa}}</td>
+            <td>{{item.qtMovimentoMercadoria}}</td>
+            <td>{{item.vlMovimentoMercadoria}}</td>
+            <td>{{item.movimentoestoque.dsLote}}</td>
             <td>
               <button (click)="editar(item)" class="btn edit">Editar</button>
               <button (click)="excluir(item)" class="btn del">Excluir</button>

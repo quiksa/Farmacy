@@ -16,6 +16,8 @@ const url = 'http://localhost:8080';
 export class CadastroService {
 
 
+
+
   constructor(private http: Http) { }
 
   saveOrUpdateMercadoria(mercadoria: Mercadoria): any {
@@ -70,7 +72,6 @@ export class CadastroService {
   }
 
   saveOrUpdateMovimentoMercadoria(movimentomercadoria: MovimentoMercadoria): any {
-    debugger
     return this.http.post(url + '/movimentomercadoriaestoque/insertOrUpdadeMovimentoMercadoriaEstoque', {
       idfornecedor: movimentomercadoria.idfornecedor,
       idmercadoria: movimentomercadoria.idmercadoria,
@@ -78,9 +79,15 @@ export class CadastroService {
       idmovimentoestoque: movimentomercadoria.idmovimentoestoque,
       dslote: movimentomercadoria.dslote,
       qtMovimentoMercadoria: movimentomercadoria.qtmovimentomercadoria,
-      vlMovimentoMercadoria: movimentomercadoria.vlmercadoria
+      vlMovimentoMercadoria: movimentomercadoria.vlmercadoria,
+      idMovimentoMercadoria: movimentomercadoria.idmovimentomercadoria
     })
   }
+
+  loadEntradaEstoque(): any {
+    return this.http.get(url + '/movimentomercadoriaestoque/load').map((response: Response) => response.json())
+  }
+
 
   loadMercadoria(): any {
     return this.http.get(url + '/mercadoria/load').map((response: Response) => response.json())
@@ -121,6 +128,14 @@ export class CadastroService {
   getEstados(filter): Observable<Array<any>> {
     return this.http.get(url + '/estado/load').map((response: Response) => response.json())
     //return this.http.get(this.url + '/estado').map((res) => { return this.extractFilteredData(res, filter) }).catch(this.handleError);
+  }
+
+  deleteMovimentacao(idMovimentoMercadoria: any): any {
+    return this.http.get(url + '/movimentomercadoriaestoque/deleteMovimentacao', {
+      params: {
+        idMovimentoMercadoria: idMovimentoMercadoria,
+      }
+    })
   }
 
   deleteUnidade(idunidade) {
