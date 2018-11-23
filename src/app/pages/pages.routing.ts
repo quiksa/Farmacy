@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { LoginComponent } from './login/login.component';
-import ActivateGuard from '../services/activate-guard.service';
 
 export const childRoutes: Routes = [
     {
@@ -11,7 +10,6 @@ export const childRoutes: Routes = [
     {
         path: 'pages',
         component: PagesComponent,
-        canActivate: [ActivateGuard],
         children: [
             { path: '', redirectTo: 'index', pathMatch: 'full' },
             { path: 'index', loadChildren: './index/index.module#IndexModule' },

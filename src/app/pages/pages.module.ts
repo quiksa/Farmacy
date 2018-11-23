@@ -27,7 +27,7 @@ import ActivateGuard from '../services/activate-guard.service';
         SelectModule,
         NgxSelectModule
     ],
-    providers: [LoginService, CadastroService, ActivateGuard],
+    providers: [LoginService, CadastroService],
     declarations: [
         PagesComponent,
         LoginComponent

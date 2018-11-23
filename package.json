@@ -34,7 +34,7 @@
     "ngx-echarts": "^2.0.0",
     "ngx-modal": "0.0.29",
     "ngx-pagination": "^3.0.3",
-    "ngx-select-ex": "^3.5.2-ng4",
+    "ngx-select-ex": "3.5.2-ng4",
     "normalize.css": "^7.0.0",
     "pell": "^1.0.4",
     "roboto-fontface": "^0.8.0",
@@ -61,6 +61,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.3.2",
+    "ts-md5": "~1.2.4",
     "typescript": "~2.3.3"
   }
 }
