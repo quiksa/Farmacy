@@ -3,7 +3,7 @@
     <card>
       <div class="form-inline">
         <label class="control-label"> Nome Cliente </label>
-        <input type="text" class="form-control form-control-lg" [(ngModule)]="nmPessoa" placeholder="Digite o nome do cliente" size="30">
+        <input type="text" class="form-control form-control-lg" [(ngModel)]="nmPessoa" placeholder="Digite o nome do cliente" size="30">
         <label class="control-label">CPF: </label>
         <input type="text" class="form-control form-control-lg" placeholder="-----------" maxlength="11" >
       </div>
@@ -33,7 +33,7 @@
   <div class="col-md-8 animated fadeIn">
     <card>
       <table class="table">
-        <th> <i class="fa fa-times" style="color:orangered"></i></th>
+        <!-- <th> <i class="fa fa-times" style="color:orangered"></i></th> -->
         <th scope="col">Quantidade</th>
         <th scope="col">Produto</th>
         <th scope="col">Sub-Total</th>
@@ -45,7 +45,6 @@
         <h2>Pedido nº 0000 </h2>
         <h3>Total : </h3>
         <button class="btn btn-primary"> CONFIRMA COMPRA</button>
-       
         <button class="btn btn-danger"> CANCELA COMPRA</button>
       </card>
   </div>

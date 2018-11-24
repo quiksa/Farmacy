@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartsService } from '../charts/components/echarts/charts.service';
 
-
 export class Cliente {
   idcliente: string;
   idpessoa: string;
@@ -18,11 +17,6 @@ export class Cliente {
   idcidade: string;
 }
 
-
-
-
-
-
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -31,15 +25,8 @@ export class Cliente {
 })
 export class IndexComponent implements OnInit {
 
-  private nmPessoa;
-  private nrCpf;
-
-
-
-
-
-
-
+  public nmPessoa;
+  public nrCpf;
 
   showloading: boolean = false;
 
