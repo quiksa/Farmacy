@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IndexComponent } from './index.component';
@@ -7,6 +8,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
     imports: [
+        FormsModule,
         CommonModule,
         SharedModule,
         NgxEchartsModule,

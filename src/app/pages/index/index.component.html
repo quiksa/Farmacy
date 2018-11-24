@@ -1,66 +1,53 @@
 <div class="row">
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Current Users</h3>
-        <span>102,018 / 200,450</span>
-      </div>
-      <button class="tip-ico tip-ico-primary">
-        <i class="fa fa-group fa-fw"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Messages</h3>
-        <span>2 messages</span>
-      </div>
-      <button class="tip-ico tip-ico-info">
-        <i class="fa fa-comments fa-fw"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Mails</h3>
-        <span>2 mails</span>
-      </div>
-      <button class="tip-ico tip-ico-success">
-        <i class="fa fa-envelope fa-fw"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Feedback</h3>
-        <span>20 feedbacks</span>
-      </div>
-      <button class="tip-ico tip-ico-danger">
-        <i class="fa fa-warning fa-fw"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-md-8">
-    <card cardTitle='Bar Chart' isCollapse="true">
-      <div echarts [options]="AnimationBarOption" [loading]="showloading" theme="dark"></div>
-    </card>
-  </div>
-  <div class="col-md-4">
-    <card cardTitle="Todo List" isCollapse="true">
-      <du-todolist></du-todolist>
-    </card>
-  </div>
-  <div class="col-md-6">
+  <div class="col-md-12 animated fadeIn">
     <card>
-      <profile></profile>
+      <div class="form-inline">
+        <label class="control-label"> Nome Cliente </label>
+        <input type="text" class="form-control form-control-lg" [(ngModule)]="nmPessoa" placeholder="Digite o nome do cliente" size="30">
+        <label class="control-label">CPF: </label>
+        <input type="text" class="form-control form-control-lg" placeholder="-----------" maxlength="11" >
+      </div>
     </card>
   </div>
-  <div class="col-md-6">
+</div>
+<div class="row">
+  <div class="col-md-12 animated fadeIn">
     <card>
-      <weather></weather>
+      <div class="form-inline">
+        <label class="control-label">Qtd: </label>
+        <input type="text" class="form-control form-control-lg" placeholder="Quantidade" size="7">
+        <label class="control-label">Produto: </label>
+        <input type="text" class="form-control form-control-lg" placeholder="Descrição do produto" size="56">
+        <label class="control-label">Valor Unitário: </label>
+        <input type="text" class="form-control form-control-lg" size="10">
+        <label class="control-label">Sub-Total: </label>
+        <input type="text" class="form-control form-control-lg" size="10">
+        <label class="control-label">% Desconto</label>
+        <input type="text" class="form-control form-control-lg" size="3" style="margin:10px;">
+        <button type="submit" class="btn btn-warning" style="margin:10px;" >Adicionar</button>
+      </div>
     </card>
   </div>
+</div>
+<div class="row">
+  <div class="col-md-8 animated fadeIn">
+    <card>
+      <table class="table">
+        <th> <i class="fa fa-times" style="color:orangered"></i></th>
+        <th scope="col">Quantidade</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Sub-Total</th>
+      </table>
+    </card>
+  </div>
+  <div class="col-md-4 animated fadeIn">
+      <card>
+        <h2>Pedido nº 0000 </h2>
+        <h3>Total : </h3>
+        <button class="btn btn-primary"> CONFIRMA COMPRA</button>
+       
+        <button class="btn btn-danger"> CANCELA COMPRA</button>
+      </card>
+  </div>
+  
 </div>
