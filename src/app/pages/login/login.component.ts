@@ -12,10 +12,10 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   fullImagePath: string;
-  private unidadeList
-  private login;
-  private pass;
-  private idUnidade
+  public unidadeList
+  public login;
+  public pass;
+  public idUnidade
 
   constructor(private auth: LoginService, private router: Router) {
     this.fullImagePath = './assets/images/logo.png'

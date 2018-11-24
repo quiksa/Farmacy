@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import 'rxjs/add/operator/delay';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { BaseFormComponent } from '../../../../shared/components/base-form/base-form.component';
 
 
 export class Fornecedor {
@@ -37,23 +36,23 @@ export class FornecedorComponent implements OnInit {
     //super();
   }
 
-  private idfornecedor;
-  private cnpj;
-  private dsfornecedor;
-  private idpessoa;
-  private nmpessoa;
-  private nrtelefone;
-  private idendereco;
-  private nmrua;
-  private email;
-  private idEstado
-  private dscomplemento;
-  private bairro;
-  private idcidade;
-  private cidadeList;
-  private estadoList;
-  private itemIdEstado;
-  private itemIdCidade;
+  public idfornecedor;
+  public cnpj;
+  public dsfornecedor;
+  public idpessoa;
+  public nmpessoa;
+  public nrtelefone;
+  public idendereco;
+  public nmrua;
+  public email;
+  public idEstado
+  public dscomplemento;
+  public bairro;
+  public idcidade;
+  public cidadeList;
+  public estadoList;
+  public itemIdEstado;
+  public itemIdCidade;
 
 
   ngOnInit() {

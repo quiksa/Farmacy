@@ -27,19 +27,19 @@ export class UnidadeComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
 
-  private idunidade = null;
-  private dsunidade;
-  private idendereco = null;
-  private nmunidade;
-  private nmreduzido;
-  private cnpj;
-  private idcidade;
-  private bairro;
-  private nmrua;
-  private dscomplemento;
-  private itemIdEstado;
-  private estadoList;
-  private cidadeList;
+  public idunidade = null;
+  public dsunidade;
+  public idendereco = null;
+  public nmunidade;
+  public nmreduzido;
+  public cnpj;
+  public idcidade;
+  public bairro;
+  public nmrua;
+  public dscomplemento;
+  public itemIdEstado;
+  public estadoList;
+  public cidadeList;
 
   constructor(private cadastroservice: CadastroService) { }
 

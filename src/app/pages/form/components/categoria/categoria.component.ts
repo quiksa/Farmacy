@@ -20,9 +20,9 @@ export class CategoriaComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
 
-  private idcategoria
-  private nmcategoria
-  private dscategoria
+  public idcategoria
+  public nmcategoria
+  public dscategoria
 
   constructor(private cadastroservice: CadastroService) { }
 

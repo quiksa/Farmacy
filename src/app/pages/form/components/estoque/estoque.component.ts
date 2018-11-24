@@ -19,11 +19,11 @@ export class EstoqueComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
 
-  private idunidade
-  private idestoque
-  private dsestoque
-  private unidadeList
-  private itemIdUnidade
+  public idunidade
+  public idestoque
+  public dsestoque
+  public unidadeList
+  public itemIdUnidade
 
   constructor(private cadastroservice: CadastroService) { }
 

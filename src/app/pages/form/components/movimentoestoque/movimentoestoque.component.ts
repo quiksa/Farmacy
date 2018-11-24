@@ -24,17 +24,17 @@ export class MovimentoEstoqueComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
 
-  private idmercadoria
-  private idestoque
-  private vlmercadoria
-  private qtmovimentomercadoria
-  private idmovimentoestoque
-  private idfornecedor
-  private dslote
-  private idmovimentomercadoria
-  private fornecedorList
-  private mercadoriaList
-  private estoqueList
+  public idmercadoria
+  public idestoque
+  public vlmercadoria
+  public qtmovimentomercadoria
+  public idmovimentoestoque
+  public idfornecedor
+  public dslote
+  public idmovimentomercadoria
+  public fornecedorList
+  public mercadoriaList
+  public estoqueList
 
   constructor(private cadastroservice: CadastroService) { }
 
@@ -174,5 +174,9 @@ export class MovimentoEstoqueComponent implements OnInit {
         })
       }
     });
+  }
+
+  loadData() {
+
   }
 }

@@ -21,9 +21,9 @@ export class CargoComponent implements OnInit {
 
   constructor(private cadastroservice: CadastroService) { }
 
-  private idcargo;
-  private nmcargo;
-  private dscargo;
+  public idcargo;
+  public nmcargo;
+  public dscargo;
 
   ngOnInit() {
     this.loadData();

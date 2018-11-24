@@ -21,13 +21,13 @@ export class MercadoriaComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
 
-  private idmercadoria
-  private nmmercadoria
-  private idcategoria
-  private codbarras
-  private dscomplemento
-  private categoriaList
-  private fornecedorList
+  public idmercadoria
+  public nmmercadoria
+  public idcategoria
+  public codbarras
+  public dscomplemento
+  public categoriaList
+  public fornecedorList
 
   constructor(private cadastroservice: CadastroService) { }
 
@@ -75,6 +75,10 @@ export class MercadoriaComponent implements OnInit {
     this.codbarras = null
     this.idcategoria = null
     this.dscomplemento = null
+  }
+  
+  loadData(){
+    
   }
 
   cadastra() {

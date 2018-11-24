@@ -36,31 +36,31 @@ export class FuncionarioComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
 
-  private sgsexo;
-  private idpessoa;
-  private idunidade;
-  private idfuncionario;
-  private idcargo;
-  private idendereco;
-  private idCliente;
-  private nmpessoa;
-  private usuario;
-  private senha;
-  private email;
-  private nmrua;
-  private dscomplemento;
-  private dtnascimento;
-  private nrcpf;
-  private bairro;
-  private nrtelefone;
-  private itemIdEstado;
-  private itemIdCidade;
-  private passaux;
-  private estadoList;
-  private cidadeList;
-  private cargoList;
-  private itemCargo;
-  private unidadeList;
+  public sgsexo;
+  public idpessoa;
+  public idunidade;
+  public idfuncionario;
+  public idcargo;
+  public idendereco;
+  public idCliente;
+  public nmpessoa;
+  public usuario;
+  public senha;
+  public email;
+  public nmrua;
+  public dscomplemento;
+  public dtnascimento;
+  public nrcpf;
+  public bairro;
+  public nrtelefone;
+  public itemIdEstado;
+  public itemIdCidade;
+  public passaux;
+  public estadoList;
+  public cidadeList;
+  public cargoList;
+  public itemCargo;
+  public unidadeList;
 
 
   //PEGA O ESTADO SELECIONADO E PROCURA AS CIDADES
@@ -233,5 +233,13 @@ export class FuncionarioComponent implements OnInit {
 
   excluir(item) {
     console.log(item)
+  }
+
+  pageChanged(ev) {
+
+  }
+
+  loadData() {
+
   }
 }

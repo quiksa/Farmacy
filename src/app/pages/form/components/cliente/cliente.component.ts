@@ -30,22 +30,22 @@ export class ClienteComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
 
-  private sgsexo;
-  private idpessoa;
-  private idendereco;
-  private idCliente;
-  private nmpessoa;
-  private email;
-  private nmrua;
-  private dscomplemento;
-  private dtnascimento;
-  private nrcpf;
-  private bairro;
-  private nrtelefone;
-  private itemIdEstado;
-  private itemIdCidade;
-  private estadoList;
-  private cidadeList;
+  public sgsexo;
+  public idpessoa;
+  public idendereco;
+  public idCliente;
+  public nmpessoa;
+  public email;
+  public nmrua;
+  public dscomplemento;
+  public dtnascimento;
+  public nrcpf;
+  public bairro;
+  public nrtelefone;
+  public itemIdEstado;
+  public itemIdCidade;
+  public estadoList;
+  public cidadeList;
 
 
   //PEGA O ESTADO SELECIONADO E PROCURA AS CIDADES

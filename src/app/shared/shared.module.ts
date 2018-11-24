@@ -16,7 +16,6 @@ import { PellEditorComponent } from './components/pell-editor/pell-editor.compon
 import { AlertComponent } from './components/alert/alert.component';
 import { WeatherComponent } from './components/weather/weather.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { BaseFormComponent } from './components/base-form/base-form.component';
 import { ErrorMsgComponent } from './components/error-msg/error-msg.component';
 
 @NgModule({

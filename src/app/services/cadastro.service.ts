@@ -242,7 +242,7 @@ export class CadastroService {
     })
   }
 
-  private extractFilteredData(res: Response, filter: string) {
+  public extractFilteredData(res: Response, filter: string) {
     let body = res.json().filter((item: any) => { return item.nmEstado.toLowerCase().indexOf(filter) != -1 });
     return body || [];
   }

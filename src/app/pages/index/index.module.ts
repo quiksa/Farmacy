@@ -14,6 +14,9 @@ import { NgxEchartsModule } from 'ngx-echarts';
     ],
     declarations: [
         IndexComponent
+    ],
+    exports:[
+        IndexComponent
     ]
 })
 export class IndexModule { }
