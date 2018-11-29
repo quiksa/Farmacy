@@ -15,9 +15,11 @@ import { HttpModule } from '@angular/http';
 import { SelectModule } from 'ng2-select';
 import { NgxSelectModule } from 'ngx-select-ex';
 import ActivateGuard from '../services/activate-guard.service';
+import { IndexModule } from './index/index.module';
 
 @NgModule({
     imports: [
+        IndexModule,
         CommonModule,
         LayoutModule,
         SharedModule,
@@ -30,7 +32,7 @@ import ActivateGuard from '../services/activate-guard.service';
     providers: [LoginService, CadastroService],
     declarations: [
         PagesComponent,
-        LoginComponent
+        LoginComponent,
     ]
 })
 export class PagesModule { }
