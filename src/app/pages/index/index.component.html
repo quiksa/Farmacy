@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="row">
     <div class="col-md-6">
         <label class="control-label"> Nome Cliente </label>
@@ -12,6 +13,23 @@
     </div>
 </div>
 <br>
+=======
+  <div class="row">
+    <card>
+    <div class="col-md-6">
+          <label class="control-label"> Nome Cliente </label>
+          <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente" optionTextField="nmPessoa"
+          placeholder="Digite o nome do cliente"></ngx-select>
+    </div>
+    <div class="col-md-6">
+        <label class="control-label">CPF :</label>
+            <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente" optionTextField="nrCpf"
+            placeholder="Digite o nome do cliente"></ngx-select>       
+    </div>
+  </card>
+  </div>
+
+>>>>>>> 06689c767fa9c518ac20a8e5e6bb997440049544
 <div class="row">
   <div class="col-md-12 animated fadeIn">
     <card>
