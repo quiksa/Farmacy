@@ -1,6 +1,7 @@
 import { CadastroService } from './../../services/cadastro.service';
 import { Component, OnInit } from '@angular/core';
-import { ChartsService } from '../charts/components/echarts/charts.service';  
+import { ChartsService } from '../charts/components/echarts/charts.service';
+import swal from 'sweetalert2';
 
 export class Cliente {
   idcliente: string;
@@ -26,12 +27,21 @@ export class Cliente {
 })
 export class IndexComponent implements OnInit {
 
+
+  private valorMercadoria;
+
+  public totalValor;
+  public desconto;
+  public vlMercadoria;
+  public subTotal;
+  public qtdMercadoria;
   public nmPessoa;
   public idCliente;
+  public idMercadoria;
   public nrCpf;
   public clienteList;
+  public productList;
   tableData: Array<any>;
-  //tup =[,];
 
   showloading: boolean = false;
 
@@ -42,11 +52,24 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.AnimationBarOption = this._chartsService.getAnimationBarOption();
     this.clienteList=this.loadCliente();
-    debugger
+    this.productList=this.loadMercadoria();
+  }
+
+  loadMercadoria(){
+    this.cadastroService.loadMercadoria().subscribe(res=>{
+      this.productList=res.map(data=>{
+        data.nmMercadoria = data.nmMercadoria;
+        data.vlMercadoria = data.vlMercadoria;
+        this.valorMercadoria= data.vlMercadoria;
+        //console.log(data.vlMercadoria.toString());
+        return data;
+      })
+    },err=>{
+      console.log ("Error occured")
+    });
   }
 
   loadCliente(){
-
     this.cadastroService.loadClientes().subscribe(res=>{
       this.clienteList = res.map(data =>{
         data.nmPessoa = data.pessoa.nmPessoa;
@@ -58,6 +81,42 @@ export class IndexComponent implements OnInit {
     }, err=>{
       console.log("Error Occured")
     });
+  }
+
+  subTotalFunction(){
+    if(this.idMercadoria != null || this.qtdMercadoria !=null){
+      let a= this.qtdMercadoria;
+      let b= this.idMercadoria;
+      debugger
+      this.subTotal = this.qtdMercadoria * this.vlMercadoria;
+      
+    }else{
+      swal({
+        type: 'error',
+        title: 'Oops...',
+        text: 'Há campos vazios, verifique por favor.',
+      });
+    }
+
+  }
+
+  onFocusFunctionValor(){
+    if(this.idMercadoria !=null || this.qtdMercadoria !=null || this.totalValor!=null ||this.subTotal !=null || this.totalValor !=null){
+      this.totalValor =(this.subTotal *((100-this.desconto)/100));
+    }else{
+      swal({
+        type: 'error',
+        title: 'Oops...',
+        text: 'Há campos vazios, verifique por favor.',
+      });
+    }
+  }
+
+  eventoLimpar(){
+    this.idMercadoria=null;
+    this.qtdMercadoria=null;
+    this.totalValor = null;
+    this.subTotal = null;
   }
 
 }

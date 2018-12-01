@@ -1,36 +1,54 @@
-  <div class="row">
-    <div class="col-md-6">
-          <label class="control-label"> Nome Cliente </label>
-          <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente" optionTextField="nmPessoa"
-          placeholder="Digite o nome do cliente"></ngx-select>
-    </div>
-    <div class="col-md-6">
-        <label class="control-label">CPF :</label>
-            <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente" optionTextField="nrCpf"
-            placeholder="Digite o nome do cliente"></ngx-select>       
-    </div>
-  </div>
-  <br>
-  <br>
 <div class="row">
-  <div class="col-md-12 animated fadeIn">
-    <card>
-      <div class="form-inline">
-        <label class="control-label">Qtd: </label>
-        <input type="text" class="form-control form-control-lg" placeholder="Quantidade" size="7">
-        <label class="control-label">Produto: </label>
-        <input type="text" class="form-control form-control-lg" placeholder="Descrição do produto" size="56">
-        <label class="control-label">Valor Unitário: </label>
-        <input type="text" class="form-control form-control-lg" size="10">
-        <label class="control-label">Sub-Total: </label>
-        <input type="text" class="form-control form-control-lg" size="10">
-        <label class="control-label">% Desconto</label>
-        <input type="text" class="form-control form-control-lg" size="3" style="margin:10px;">
-        <button type="submit" class="btn btn-warning" style="margin:10px;" >Adicionar</button>
-      </div>
-    </card>
+  <div class="col-md-6">
+    <label class="control-label"> Nome Cliente </label>
+    <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente" optionTextField="nmPessoa"
+    placeholder="Digite o nome do cliente"></ngx-select>
+  </div>
+  <div class="col-md-6">
+    <label class="control-label">CPF :</label>
+    <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente" optionTextField="nrCpf"
+    placeholder="Digite o nome do cliente"></ngx-select>       
   </div>
 </div>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-12 animated fadeIn">
+    
+      <div class="col-md-1" >
+        <label class="control-label">Quantidade: </label>
+        <!-- --><input type="text" class="form-control form-control-md" [(ngModel)]="qtdMercadoria" size="7">
+      </div>
+      <div class="col-md-4">
+        <label class="control-label">Produto: </label>
+        <!-- <input type="text" class="form-control form-control-md" placeholder="Descrição do produto" size="56"> -->
+        <ngx-select [allowClear]="true" [items]="productList" optionValueField="idMercadoria" [(ngModel)]="idMercadoria" optionTextField="nmMercadoria">
+        </ngx-select> 
+      </div>
+      <div class="col-md-3">
+        <label class="control-label">Valor Unitário (R$): </label>
+        <ngx-select [allowClear]="true" [items]="productList" optionValueField="idMercadoria" [(ngModel)]="idMercadoria" optionTextField="vlMercadoria">
+        </ngx-select> 
+      </div>
+      <div class="row">
+        <div class="col-md-1">
+          <label class="control-label">Sub-Total</label>
+          <input type="text" class="form-control form-control-md"[(ngModel)]="subTotal" (focus)="subTotalFunction()" >
+        </div>
+        <div class="col-md-1">
+          <label class="control-label">% Desconto</label>
+          <input type="text" class="form-control form-control-md" [(ngModel)]="desconto">
+        </div>
+        <div class="col-md-2">
+            <label class="control-label">Total(R$)</label>
+            <input type="text" class="form-control form-control-md" [(ngModel)]="totalValor" (focus)="onFocusFunctionValor()" >
+          <button type="submit" class="btn btn-warning" style="margin-top:10px;" >Adicionar</button>
+          <button type="submit" class="btn btn-warning" (click)="eventoLimpar()"  style="margin-top:10px;" >Limpar</button>
+        </div>
+      </div>
+  </div>
+</div>
+<br><br><br>
 <div class="row">
   <div class="col-md-8 animated fadeIn">
     <card>

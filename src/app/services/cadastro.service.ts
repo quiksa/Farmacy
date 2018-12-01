@@ -15,9 +15,6 @@ const url = 'http://localhost:8080';
 @Injectable()
 export class CadastroService {
 
-
-
-
   constructor(private http: Http) { }
 
   saveOrUpdateMercadoria(mercadoria: Mercadoria): any {
