@@ -227,7 +227,7 @@ export class CadastroService {
       idCliente: cliente.idcliente,
       nmPessoa: cliente.nmpessoa,
       email: cliente.email,
-      nrCpf: cliente.nrcpf,
+      nrcpf: cliente.nrcpf,
       nrTelefone: cliente.nrtelefone,
       nmrua: cliente.nmrua,
       dtnascimento: cliente.dtnascimento,

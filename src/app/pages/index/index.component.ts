@@ -28,95 +28,118 @@ export class Cliente {
 export class IndexComponent implements OnInit {
 
 
-  private valorMercadoria;
-
+  public valorMercadoria;
+  public pageSize = 10;
+  public pageNumber = 1;
   public totalValor;
-  public desconto;
-  public vlMercadoria;
+  public desconto = 0;
+  public vlUnitario;
   public subTotal;
   public qtdMercadoria;
   public nmPessoa;
   public idCliente;
+  public nmMercadoria
   public idMercadoria;
+  public id;
   public nrCpf;
   public clienteList;
   public productList;
-  tableData: Array<any>;
+  public tableData: Array<any>;
 
   showloading: boolean = false;
 
   public AnimationBarOption;
 
-  constructor(private _chartsService: ChartsService, private cadastroService : CadastroService) { }
+  constructor(private _chartsService: ChartsService, private cadastroService: CadastroService) { }
 
   ngOnInit() {
+    this.tableData = new Array
     this.AnimationBarOption = this._chartsService.getAnimationBarOption();
-    this.clienteList=this.loadCliente();
-    this.productList=this.loadMercadoria();
+    this.clienteList = this.loadCliente();
+    this.productList = this.loadMercadoria();
   }
 
-  loadMercadoria(){
-    this.cadastroService.loadMercadoria().subscribe(res=>{
-      this.productList=res.map(data=>{
+  loadMercadoria() {
+    this.cadastroService.loadMercadoria().subscribe(res => {
+      this.productList = res.map((data, index) => {
         data.nmMercadoria = data.nmMercadoria;
         data.vlMercadoria = data.vlMercadoria;
-        this.valorMercadoria= data.vlMercadoria;
-        //console.log(data.vlMercadoria.toString());
+        data.index = index
+        this.valorMercadoria = data.vlMercadoria;
         return data;
       })
-    },err=>{
-      console.log ("Error occured")
+    }, err => {
+      console.log("Error occured")
     });
   }
 
-  loadCliente(){
-    this.cadastroService.loadClientes().subscribe(res=>{
-      this.clienteList = res.map(data =>{
+  loadCliente() {
+    this.cadastroService.loadClientes().subscribe(res => {
+      this.clienteList = res.map(data => {
         data.nmPessoa = data.pessoa.nmPessoa;
         data.nrCpf = data.nrcpf;
-        //this.tup = [data.nmPessoa,data.nrCpf];
-        //console.log(this.tup);
         return data
       })
-    }, err=>{
+    }, err => {
       console.log("Error Occured")
     });
   }
 
-  subTotalFunction(){
-    if(this.idMercadoria != null || this.qtdMercadoria !=null){
-      let a= this.qtdMercadoria;
-      let b= this.idMercadoria;
-      debugger
-      this.subTotal = this.qtdMercadoria * this.vlMercadoria;
-      
-    }else{
-      swal({
-        type: 'error',
-        title: 'Oops...',
-        text: 'Há campos vazios, verifique por favor.',
-      });
-    }
-
+  subTotalFunction() {
+    this.subTotal = this.qtdMercadoria * this.vlUnitario;
   }
 
-  onFocusFunctionValor(){
-    if(this.idMercadoria !=null || this.qtdMercadoria !=null || this.totalValor!=null ||this.subTotal !=null || this.totalValor !=null){
-      this.totalValor =(this.subTotal *((100-this.desconto)/100));
-    }else{
-      swal({
-        type: 'error',
-        title: 'Oops...',
-        text: 'Há campos vazios, verifique por favor.',
-      });
-    }
+  calculaValor() {
+    this.totalValor = (this.subTotal * ((100 - this.desconto) / 100));
   }
 
-  eventoLimpar(){
-    this.idMercadoria=null;
-    this.qtdMercadoria=null;
+  eventoLimpar() {
+    this.idMercadoria = null;
+    this.qtdMercadoria = null;
     this.totalValor = null;
     this.subTotal = null;
+    this.desconto = 0
+  }
+
+  selecionaItem(index) {
+    this.id = this.productList[index].idMercadoria
+    this.vlUnitario = this.productList[index].vlMercadoria
+    this.nmMercadoria = this.productList[index].nmMercadoria
+    this.subTotalFunction()
+    this.calculaValor()
+  }
+
+  onKey(event) {
+    this.subTotalFunction()
+    this.calculaValor()
+  }
+
+  addCarinho() {
+    let item = {
+      idMercadoria: this.id,
+      quantidade: this.qtdMercadoria,
+      mercadoria: this.nmMercadoria,
+      total: this.totalValor,
+    }
+    this.tableData.push(item)
+    this.eventoLimpar()
+  }
+
+  editar(item) {
+    this.idMercadoria = item.idMercadoria
+    debugger
+  }
+
+  excluir(item) {
+    this.tableData.splice(this.tableData.indexOf(item), 1)
+  }
+
+  loadData() {
+
+  }
+
+  pageChanged(pN: number): void {
+    this.pageNumber = pN;
   }
 
 }

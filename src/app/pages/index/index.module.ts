@@ -6,6 +6,7 @@ import { routing } from './index.routing';
 import { SharedModule } from '../../shared/shared.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { IndexComponent } from './index.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -14,6 +15,7 @@ import { IndexComponent } from './index.component';
         CommonModule,
         SharedModule,
         NgxEchartsModule,
+        NgxPaginationModule,
         routing
     ],
     declarations: [

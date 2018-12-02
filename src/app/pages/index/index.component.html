@@ -17,50 +17,87 @@
     
       <div class="col-md-1" >
         <label class="control-label">Quantidade: </label>
-        <!-- --><input type="text" class="form-control form-control-md" [(ngModel)]="qtdMercadoria" size="7">
+        <input (keyup)="onKey($event)" type="number" class="form-control form-control-md" [(ngModel)]="qtdMercadoria" size="7">
       </div>
       <div class="col-md-4">
         <label class="control-label">Produto: </label>
         <!-- <input type="text" class="form-control form-control-md" placeholder="Descrição do produto" size="56"> -->
-        <ngx-select [allowClear]="true" [items]="productList" optionValueField="idMercadoria" [(ngModel)]="idMercadoria" optionTextField="nmMercadoria">
+        <ngx-select [allowClear]="true" (select)="selecionaItem($event)" [items]="productList" optionValueField="index" [(ngModel)]="idMercadoria" optionTextField="nmMercadoria">
         </ngx-select> 
       </div>
       <div class="col-md-3">
         <label class="control-label">Valor Unitário (R$): </label>
-        <ngx-select [allowClear]="true" [items]="productList" optionValueField="idMercadoria" [(ngModel)]="idMercadoria" optionTextField="vlMercadoria">
+        <ngx-select [allowClear]="true" [items]="productList" [disabled]="true" optionValueField="index" [(ngModel)]="idMercadoria" optionTextField="vlMercadoria">
         </ngx-select> 
       </div>
       <div class="row">
         <div class="col-md-1">
           <label class="control-label">Sub-Total</label>
-          <input type="text" class="form-control form-control-md"[(ngModel)]="subTotal" (focus)="subTotalFunction()" >
+          <input type="number" readonly class="form-control form-control-md"[(ngModel)]="subTotal">
         </div>
         <div class="col-md-1">
           <label class="control-label">% Desconto</label>
-          <input type="text" class="form-control form-control-md" [(ngModel)]="desconto">
+          <input (keyup)="onKey($event)" type="number" class="form-control form-control-md" [(ngModel)]="desconto">
         </div>
         <div class="col-md-2">
             <label class="control-label">Total(R$)</label>
-            <input type="text" class="form-control form-control-md" [(ngModel)]="totalValor" (focus)="onFocusFunctionValor()" >
-          <button type="submit" class="btn btn-warning" style="margin-top:10px;" >Adicionar</button>
+            <input type="number" readonly class="form-control form-control-md" [(ngModel)]="totalValor">
+          <button type="submit" class="btn btn-warning" (click)="addCarinho()" style="margin-top:10px;" >Adicionar</button>
           <button type="submit" class="btn btn-warning" (click)="eventoLimpar()"  style="margin-top:10px;" >Limpar</button>
         </div>
       </div>
   </div>
 </div>
-<br><br><br>
+<br>
 <div class="row">
-  <div class="col-md-8 animated fadeIn">
-    <card>
-      <table class="table">
-        <!-- <th> <i class="fa fa-times" style="color:orangered"></i></th> -->
-        <th scope="col">Quantidade</th>
-        <th scope="col">Produto</th>
-        <th scope="col">Sub-Total</th>
+  <div class="col-md-8">
+    <card cardTitle="Produtos">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Quantidade</th>
+            <th>Mercadoria</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{item.quantidade}}</td>
+            <td>{{item.mercadoria}}</td>
+            <td>{{item.total}}</td>           
+            <td>
+              <button (click)="editar(item)" class="btn edit">Editar</button>
+              <button (click)="excluir(item)" class="btn del">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Por Página</span>
+          </div>
+        </div>
+      </form>
     </card>
   </div>
-  <div class="col-md-4 animated fadeIn">
+  <div class="col-md-4">
       <card>
         <h2>Pedido nº 0000 </h2>
         <h3>Total : </h3>
@@ -68,5 +105,4 @@
         <button class="btn btn-danger"> CANCELA COMPRA</button>
       </card>
   </div>
-  
 </div>
