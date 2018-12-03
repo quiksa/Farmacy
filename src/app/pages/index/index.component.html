@@ -33,7 +33,7 @@
       <div class="row">
         <div class="col-md-1">
           <label class="control-label">Sub-Total</label>
-          <input type="number" readonly class="form-control form-control-md"[(ngModel)]="subTotal">
+          <input type="number" readonly class="form-control form-control-md cor"[(ngModel)]="subTotal">
         </div>
         <div class="col-md-1">
           <label class="control-label">% Desconto</label>
@@ -41,7 +41,7 @@
         </div>
         <div class="col-md-2">
             <label class="control-label">Total(R$)</label>
-            <input type="number" readonly class="form-control form-control-md" [(ngModel)]="totalValor">
+            <input type="number" readonly class="form-control form-control-md cor" [(ngModel)]="totalValor">
           <button type="submit" class="btn btn-warning" (click)="addCarinho()" style="margin-top:10px;" >Adicionar</button>
           <button type="submit" class="btn btn-warning" (click)="eventoLimpar()"  style="margin-top:10px;" >Limpar</button>
         </div>
@@ -100,9 +100,9 @@
   <div class="col-md-4">
       <card>
         <h2>Pedido nº 0000 </h2>
-        <h3>Total : </h3>
-        <button class="btn btn-primary"> CONFIRMA COMPRA</button>
-        <button class="btn btn-danger"> CANCELA COMPRA</button>
+        <h3>Total : R$ {{totalPedido}} </h3>
+        <button (click)="confirmVenda()" class="btn btn-primary"> CONFIRMA COMPRA</button>
+        <button (click)="cancelarVenda()" class="btn btn-danger"> CANCELA COMPRA</button>
       </card>
   </div>
 </div>

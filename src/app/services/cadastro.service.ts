@@ -239,6 +239,14 @@ export class CadastroService {
     })
   }
 
+  doVenda(listMercadorias, idcliente, idusuario): any {
+    return this.http.post(url + '/movimentomercadoriaestoque/saveVenda', {
+      idCliente: idcliente,
+      idUsuario: idusuario,
+      listMercadorias: listMercadorias
+    })
+  }
+
   public extractFilteredData(res: Response, filter: string) {
     let body = res.json().filter((item: any) => { return item.nmEstado.toLowerCase().indexOf(filter) != -1 });
     return body || [];

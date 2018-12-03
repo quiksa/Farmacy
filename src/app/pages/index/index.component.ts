@@ -32,6 +32,8 @@ export class IndexComponent implements OnInit {
   public pageSize = 10;
   public pageNumber = 1;
   public totalValor;
+  public totalPedido
+  public idUsuario
   public desconto = 0;
   public vlUnitario;
   public subTotal;
@@ -99,6 +101,7 @@ export class IndexComponent implements OnInit {
     this.totalValor = null;
     this.subTotal = null;
     this.desconto = 0
+    this.id = null
   }
 
   selecionaItem(index) {
@@ -115,23 +118,35 @@ export class IndexComponent implements OnInit {
   }
 
   addCarinho() {
-    let item = {
-      idMercadoria: this.id,
-      quantidade: this.qtdMercadoria,
-      mercadoria: this.nmMercadoria,
-      total: this.totalValor,
+    if (this.id != null && this.qtdMercadoria) {
+      let item = {
+        idMercadoria: this.id,
+        quantidade: this.qtdMercadoria,
+        desconto: this.desconto,
+        mercadoria: this.nmMercadoria,
+        total: this.totalValor,
+      }
+      this.tableData.push(item)
+      this.eventoLimpar()
+      this.calculaTotalPedido()
     }
-    this.tableData.push(item)
-    this.eventoLimpar()
+
   }
 
   editar(item) {
     this.idMercadoria = item.idMercadoria
-    debugger
+  }
+
+  calculaTotalPedido() {
+    this.totalPedido = 0
+    this.tableData.forEach(element => {
+      this.totalPedido += element.total
+    });
   }
 
   excluir(item) {
     this.tableData.splice(this.tableData.indexOf(item), 1)
+    this.calculaTotalPedido()
   }
 
   loadData() {
@@ -140,6 +155,18 @@ export class IndexComponent implements OnInit {
 
   pageChanged(pN: number): void {
     this.pageNumber = pN;
+  }
+
+  confirmVenda() {
+    if (this.tableData && this.idCliente) {
+      this.cadastroService.doVenda(this.tableData, this.idCliente, this.idUsuario)
+    } else {
+      alert('Dados invalidos')
+    }
+  }
+
+  cancelarVenda() {
+
   }
 
 }
