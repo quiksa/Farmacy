@@ -24,7 +24,6 @@ export class SaidaEstoqueComponent implements OnInit {
     this.cadastroservice.loadSaidaEstoque()
       .subscribe(res => {
         this.tableData = res
-        debugger
       }, err => {
         console.log("Error occured");
       });

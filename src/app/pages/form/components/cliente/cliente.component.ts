@@ -101,7 +101,6 @@ export class ClienteComponent implements OnInit {
     this.cadastroservice.loadClientes()
       .subscribe(res => {
         this.tableData = res
-        debugger
       }, err => {
         console.log("Error occured");
       });;
@@ -123,7 +122,6 @@ export class ClienteComponent implements OnInit {
       let cliente = new Cliente()
       cliente.bairro = this.bairro
       cliente.dtnascimento = this.dtnascimento;
-      debugger
       cliente.dscomplemento = this.dscomplemento;
       cliente.email = this.email;
       cliente.idcidade = this.itemIdCidade;

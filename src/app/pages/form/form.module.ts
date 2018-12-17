@@ -28,6 +28,7 @@ import { MovimentoEstoqueComponent } from './components/movimentoestoque/movimen
 import { TextMaskModule } from 'angular2-text-mask';
 import { FormaPagamentoComponent } from './components/formapagamento/formapagamento.component';
 import { SaidaEstoqueComponent } from './components/saidaestoque/saidaestoque.component';
+import { CpfPipe } from './cpf.pipe';
 
 @NgModule({
     imports: [
@@ -40,7 +41,7 @@ import { SaidaEstoqueComponent } from './components/saidaestoque/saidaestoque.co
         ReactiveFormsModule,
         NgxPaginationModule,
         routing,
-        TextMaskModule
+        TextMaskModule,
     ],
     declarations: [
         FormComponent,
@@ -60,7 +61,8 @@ import { SaidaEstoqueComponent } from './components/saidaestoque/saidaestoque.co
         CategoriaComponent,
         MercadoriaComponent,
         MovimentoEstoqueComponent,
-        SaidaEstoqueComponent
+        SaidaEstoqueComponent,
+        CpfPipe
     ]
 })
 export class FormModule { }

@@ -199,17 +199,14 @@ export class IndexComponent implements OnInit {
       }
       mercadoriaList.push(data)
     });
-    debugger
     if (mercadoriaList.length > 0 && this.idCliente && this.idFormaPagamento) {
       this.cadastroService.doVenda(mercadoriaList, this.idCliente, this.idFormaPagamento, this.idUsuario, this.idUnidade).subscribe(res => {
-        debugger
         swal({
           type: 'success',
           text: 'Compra realizada com sucesso!',
         });
         this.cancelarCompra()
       }, err => {
-        debugger
         swal({
           type: 'error',
           title: 'Oops...',

@@ -63,7 +63,6 @@ export class MovimentoEstoqueComponent implements OnInit {
     this.cadastroservice.loadEntradaEstoque()
       .subscribe(res => {
         this.tableData = res
-        debugger
       }, err => {
         console.log("Error occured");
       });
