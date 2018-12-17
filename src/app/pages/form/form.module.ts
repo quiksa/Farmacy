@@ -22,10 +22,12 @@ import { UnidadeComponent } from './components/unidade/unidade.component';
 import { CargoComponent } from './components/cargo/cargo.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
-import { EstoqueComponent } from './components/estoque/estoque.component';
 import { CategoriaComponent } from './components/categoria/categoria.component';
 import { MercadoriaComponent } from './components/mercadoria/mercadoria.component';
 import { MovimentoEstoqueComponent } from './components/movimentoestoque/movimentoestoque.component';
+import { TextMaskModule } from 'angular2-text-mask';
+import { FormaPagamentoComponent } from './components/formapagamento/formapagamento.component';
+import { SaidaEstoqueComponent } from './components/saidaestoque/saidaestoque.component';
 
 @NgModule({
     imports: [
@@ -37,7 +39,8 @@ import { MovimentoEstoqueComponent } from './components/movimentoestoque/movimen
         FormsModule,
         ReactiveFormsModule,
         NgxPaginationModule,
-        routing
+        routing,
+        TextMaskModule
     ],
     declarations: [
         FormComponent,
@@ -53,10 +56,11 @@ import { MovimentoEstoqueComponent } from './components/movimentoestoque/movimen
         UnidadeComponent,
         CargoComponent,
         FornecedorComponent,
-        EstoqueComponent,
+        FormaPagamentoComponent,
         CategoriaComponent,
         MercadoriaComponent,
-        MovimentoEstoqueComponent
+        MovimentoEstoqueComponent,
+        SaidaEstoqueComponent
     ]
 })
 export class FormModule { }

@@ -1,26 +1,12 @@
 <div class="form-group">
   <div class="row">
     <div class="col-md-4">
-      <label class="control-label">Nome</label>
-      <input type="text" class="form-control" [(ngModel)]="nmmercadoria" placeholder="Nome">
-    </div>
-    <div class="col-md-4">
-      <label class="control-label">Categoria</label>
-      <ngx-select [allowClear]="true" [items]="categoriaList" optionValueField="idCategoria" [(ngModel)]="idcategoria"
-        optionTextField="nmCategoria" placeholder="Ex: Medicamento">
-      </ngx-select>
-    </div>
-    <div class="col-md-4">
-        <label class="control-label">Codigo Barras</label>
-        <input type="number" maxlength="10" class="form-control" [(ngModel)]="codbarras" placeholder="123456789">
-    </div>
-    <div class="col-md-4">
       <label class="control-label">Descrição</label>
-      <textarea type="text" class="form-control" [(ngModel)]="dscomplemento" placeholder="Descrição"></textarea>
+      <input type="text" class="form-control" [(ngModel)]="dsformapagamento" placeholder="Descrição Forma Pagamento">
     </div>
     <div class="col-md-4">
-      <label class="control-label">Valor</label>
-      <input type="number" class="form-control" [(ngModel)]="vlmercadoria" placeholder="R$ 12.25">
+      <label class="control-label">Tipo Pagamento</label>
+      <input type="text" class="form-control" [(ngModel)]="dstipopagamento" placeholder="Descrição Tipo Pagamento">
     </div>
   </div>
   <div class="row">
@@ -33,27 +19,21 @@
 
 <div class="row">
   <div class="col-md-12">
-    <card cardTitle="Mercadoria">
+    <card cardTitle="Estoque">
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Valor</th>
+            <th>id</th>
+            <th>Tipo</th>
             <th>Descrição</th>
-            <th>Barras</th>
-            <th>Categoria</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
-            <td>{{item.idMercadoria}}</td>
-            <td>{{item.nmMercadoria}}</td>
-            <td>{{item.vlMercadoria}}</td>
-            <td>{{item.dsComplemento}}</td>
-            <td>{{item.codBarra}}</td>
-            <td>{{item.categoria.nmCategoria}}</td>
+            <td>{{item.idFormaPagamento}}</td>
+            <td>{{item.dsTipoPagamento}}</td>
+            <td>{{item.dsFormaPagamento}}</td>
             <td>
               <button (click)="editar(item)" class="btn edit">Editar</button>
               <button (click)="excluir(item)" class="btn del">Excluir</button>

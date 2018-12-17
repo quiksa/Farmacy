@@ -7,6 +7,7 @@ export class Mercadoria {
   idmercadoria: string
   nmmercadoria: string
   idcategoria: string
+  vlmercadoria: string
   dscomplemento: string
   codbarras: string
 }
@@ -25,6 +26,7 @@ export class MercadoriaComponent implements OnInit {
   public nmmercadoria
   public idcategoria
   public codbarras
+  public vlmercadoria
   public dscomplemento
   public categoriaList
   public fornecedorList
@@ -74,11 +76,12 @@ export class MercadoriaComponent implements OnInit {
     this.nmmercadoria = null
     this.codbarras = null
     this.idcategoria = null
+    this.vlmercadoria = null
     this.dscomplemento = null
   }
-  
-  loadData(){
-    
+
+  loadData() {
+
   }
 
   cadastra() {
@@ -93,6 +96,7 @@ export class MercadoriaComponent implements OnInit {
       mercadoria.dscomplemento = this.dscomplemento
       mercadoria.idcategoria = this.idcategoria
       mercadoria.codbarras = this.codbarras
+      mercadoria.vlmercadoria = this.vlmercadoria
       mercadoria.idmercadoria = this.idmercadoria
       mercadoria.nmmercadoria = this.nmmercadoria
       this.cadastroservice.saveOrUpdateMercadoria(mercadoria).subscribe(res => {
@@ -119,6 +123,7 @@ export class MercadoriaComponent implements OnInit {
     this.idmercadoria = item.idMercadoria
     this.nmmercadoria = item.nmMercadoria
     this.codbarras = item.codBarra
+    this.vlmercadoria = item.vlMercadoria
     this.idcategoria = item.categoria.idCategoria
     this.dscomplemento = item.dsComplemento
   }

@@ -27,13 +27,16 @@ export class Cliente {
 })
 export class IndexComponent implements OnInit {
 
-
   public valorMercadoria;
+  public idEstoque
+  public idUsuario = sessionStorage.getItem('idUsuario')
+  public idUnidade = sessionStorage.getItem('idUnidade')
+  public formaPagamentoList
+  public idFormaPagamento
   public pageSize = 10;
   public pageNumber = 1;
   public totalValor;
   public totalPedido
-  public idUsuario
   public desconto = 0;
   public vlUnitario;
   public subTotal;
@@ -59,6 +62,7 @@ export class IndexComponent implements OnInit {
     this.AnimationBarOption = this._chartsService.getAnimationBarOption();
     this.clienteList = this.loadCliente();
     this.productList = this.loadMercadoria();
+    this.formaPagamentoList = this.loadFormaPagamento()
   }
 
   loadMercadoria() {
@@ -87,16 +91,42 @@ export class IndexComponent implements OnInit {
     });
   }
 
+  loadFormaPagamento() {
+    this.cadastroService.loadFormaPagamento().subscribe(res => {
+      this.formaPagamentoList = res
+    }, err => {
+      console.log("Error occured")
+    });
+  }
+
   subTotalFunction() {
-    this.subTotal = this.qtdMercadoria * this.vlUnitario;
+    if(this.qtdMercadoria && this.vlUnitario){
+      this.subTotal = (this.qtdMercadoria * this.vlUnitario).toFixed(2);
+    }
   }
 
   calculaValor() {
-    this.totalValor = (this.subTotal * ((100 - this.desconto) / 100));
+    if(this.subTotal){
+      this.totalValor = (this.subTotal * ((100 - this.desconto) / 100)).toFixed(2);
+    }
+  }
+
+  cancelarCompra() {
+    this.idMercadoria = null;
+    this.qtdMercadoria = null;
+    this.totalValor = null;
+    this.subTotal = null;
+    this.idFormaPagamento = null
+    this.desconto = 0
+    this.id = null
+    this.idCliente = null
+    this.totalPedido = null
+    this.tableData = []
   }
 
   eventoLimpar() {
     this.idMercadoria = null;
+    this.vlUnitario = null
     this.qtdMercadoria = null;
     this.totalValor = null;
     this.subTotal = null;
@@ -139,9 +169,11 @@ export class IndexComponent implements OnInit {
 
   calculaTotalPedido() {
     this.totalPedido = 0
-    this.tableData.forEach(element => {
-      this.totalPedido += element.total
-    });
+    this.totalPedido = this.tableData.reduce(this.getSum,0)
+  }
+
+  getSum(total, num) {
+    return total + parseFloat(num.total);
   }
 
   excluir(item) {
@@ -158,15 +190,55 @@ export class IndexComponent implements OnInit {
   }
 
   confirmVenda() {
-    if (this.tableData && this.idCliente) {
-      this.cadastroService.doVenda(this.tableData, this.idCliente, this.idUsuario)
+    let mercadoriaList: Array<any> = []
+    this.tableData.forEach(element => {
+      let data = {
+        idMercadoria: element.idMercadoria,
+        desconto: element.desconto,
+        quantidade: element.quantidade
+      }
+      mercadoriaList.push(data)
+    });
+    debugger
+    if (mercadoriaList.length > 0 && this.idCliente && this.idFormaPagamento) {
+      this.cadastroService.doVenda(mercadoriaList, this.idCliente, this.idFormaPagamento, this.idUsuario, this.idUnidade).subscribe(res => {
+        debugger
+        swal({
+          type: 'success',
+          text: 'Compra realizada com sucesso!',
+        });
+        this.cancelarCompra()
+      }, err => {
+        debugger
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Verifique os parametros!',
+        });
+      })
     } else {
-      alert('Dados invalidos')
+      swal({
+        type: 'error',
+        title: 'Oops...',
+        text: 'Verifique os parametros!',
+      });
     }
   }
 
   cancelarVenda() {
-
+    swal({
+      title: 'Tem certeza que deseja cancelar a compra?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sim, cancelar!'
+    }).then((result) => {
+      if (result.value) {
+        this.cancelarCompra()
+      }
+    });
   }
 
 }

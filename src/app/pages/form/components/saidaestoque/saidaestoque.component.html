@@ -1,43 +1,33 @@
-<div class="form-group">
-  <div class="row">
-    <div class="col-md-4 magemtop">
-      <label class="control-label">Unidade</label>
-      <ngx-select [allowClear]="true" [items]="unidadeList" optionValueField="idUnidade" [(ngModel)]="idunidade"
-        optionTextField="nmUnidade" placeholder="Ex: Matriz">
-      </ngx-select>
-    </div>
-    <div class="col-md-4">
-      <label class="control-label">Descrição</label>
-      <input type="text" class="form-control" [(ngModel)]="dsestoque" placeholder="Descrição do Estoque">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4" style="margin-top: 10px">
-      <button (click)="cadastra()" class="btn btn-primary">Salvar</button>
-      <button (click)="clean()" class="btn btn-primary limpar">Limpar</button>
-    </div>
-  </div>
-</div>
-
 <div class="row">
   <div class="col-md-12">
-    <card cardTitle="Estoque">
+    <card cardTitle="Doc Saida Estoque">
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
+            <th>Código Doc</th>
+            <th>Operação</th>
+            <th>Status</th>
+            <th>CNPJ Emissor</th>
+            <th>CPF Destinatario</th>
+            <th>Forma Pagamento</th>
+            <th>Total</th>
+            <th>Usuario</th>
+            <th>Data Emissão</th>
             <th>Unidade</th>
-            <th>Descrição</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{item.idDocFiscal}}</td>
+            <td>{{item.tpOperacao}}</td>
+            <td>{{item.status}}</td>
+            <td>{{item.cnpjEmissor}}</td>
+            <td>{{item.cliente.nrcpf}}</td>
+            <td>{{item.formaPagamento.dsTipoPagamento}}</td>
+            <td>{{item.vlTotal}}</td>
+            <td>{{item.funcionario.pessoa.nmPessoa}}</td>
+            <td>{{item.dhinsert}}</td>
             <td>{{item.unidade.nmRduzido}}</td>
-            <td>{{item.dsEstoque}}</td>
-            <td>
-              <button (click)="editar(item)" class="btn edit">Editar</button>
-              <button (click)="excluir(item)" class="btn del">Excluir</button>
-            </td>
           </tr>
         </tbody>
       </table>

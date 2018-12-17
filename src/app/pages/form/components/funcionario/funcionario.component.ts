@@ -32,6 +32,9 @@ export class Funcionario {
 })
 export class FuncionarioComponent implements OnInit {
 
+  public mask = [/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]
+  public phone = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+
   tableData: Array<any>;
   pageSize = 10;
   pageNumber = 1;
@@ -204,8 +207,8 @@ export class FuncionarioComponent implements OnInit {
       funcionario.email = this.email
       funcionario.nmpessoa = this.nmpessoa
       funcionario.nmrua = this.nmrua
-      funcionario.nrcpf = this.nrcpf
-      funcionario.nrtelefone = this.nrtelefone
+      funcionario.nrcpf = this.nrcpf.replace(/\D/g,'');
+      funcionario.nrtelefone = this.nrtelefone.replace(/\D/g,'');
       if (this.senha != this.passaux) {
         let passmd5 = Md5.hashStr(this.senha)
         funcionario.senha = passmd5;

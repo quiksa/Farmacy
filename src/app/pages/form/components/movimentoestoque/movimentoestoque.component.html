@@ -1,11 +1,11 @@
 <div class="form-group">
   <div class="row">
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
       <label class="control-label">Unidade/Estoque</label>
       <ngx-select [allowClear]="true" [items]="estoqueList" optionValueField="idEstoque" [(ngModel)]="idestoque"
         optionTextField="nome" placeholder="Ex: Estoque 1">
       </ngx-select>
-    </div>
+    </div> -->
     <div class="col-md-4">
       <label class="control-label">Mercadoria</label>
       <ngx-select [allowClear]="true" [items]="mercadoriaList" optionValueField="idMercadoria" [(ngModel)]="idmercadoria"
@@ -29,7 +29,11 @@
     <div class="col-md-4">
         <label class="control-label">Lote</label>
         <input type="text" class="form-control" [(ngModel)]="dslote" placeholder="Ex: Lote 12">
-      </div>
+    </div>
+    <div class="col-md-4">
+        <label class="control-label">Validade</label>
+        <input type="date" class="form-control" [(ngModel)]="dtvalidade" placeholder="dd/mm/yyyy">
+    </div>
   </div>
   <div class="row">
     <div class="col-md-4" style="margin-top: 10px">
@@ -48,8 +52,9 @@
             <th>Código Mercadoria</th>
             <th>Nome</th>
             <th>Tipo movimentação</th>
+            <th>Funcionario</th>
+            <th>Validade</th>
             <th>Barras</th>
-            <th>Estoque</th>
             <th>Fornecedor</th>
             <th>Quantidade</th>
             <th>Valor</th>
@@ -62,8 +67,9 @@
             <td>{{item.mercadoria.idMercadoria}}</td>
             <td>{{item.mercadoria.nmMercadoria}}</td>
             <td>{{item.movimentoestoque.tpMovimentoEstoque}}</td>
+            <td>{{item.movimentoestoque.funcionario.pessoa.nmPessoa}}</td>
+            <td>{{item.movimentoestoque.dtValidade}}</td>
             <td>{{item.mercadoria.codBarra}}</td>
-            <td>{{item.estoque.unidade.nmRduzido}} - {{item.estoque.dsEstoque}}</td>
             <td>{{item.fornecedor.pessoa.nmPessoa}}</td>
             <td>{{item.qtMovimentoMercadoria}}</td>
             <td>{{item.vlMovimentoMercadoria}}</td>

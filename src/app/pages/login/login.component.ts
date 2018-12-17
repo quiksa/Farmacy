@@ -40,11 +40,17 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.login, passmd5, this.idUnidade).subscribe(res => {
         sessionStorage.setItem('username', res.pessoa.nmPessoa)
         sessionStorage.setItem('userjob', res.cargo.nmCargo)
-        sessionStorage.setItem('unidadelog',res.unidade.nmRduzido)
+        sessionStorage.setItem('unidadelog', res.unidade.nmRduzido)
+        sessionStorage.setItem('idUsuario', res.idFuncionario)
+        sessionStorage.setItem('idUnidade', res.unidade.idUnidade)
         sessionStorage.setItem('user', JSON.stringify(res));
         this.router.navigate(['/pages/index'])
       }, err => {
-
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Verifique os parametros!',
+        });
         console.log("Login Error");
       });
 

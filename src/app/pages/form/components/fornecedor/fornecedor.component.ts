@@ -27,6 +27,9 @@ export class Fornecedor {
 })
 export class FornecedorComponent implements OnInit {
 
+  public mask = [/[0-9]/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]
+  public phone = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+
   tableData: Array<any>;
   pageSize = 10;
   pageNumber = 1;
@@ -107,12 +110,12 @@ export class FornecedorComponent implements OnInit {
         console.log("Error occured");
       });;
 
-    this.cadastroservice.loadClientes()
-      .subscribe(res => {
-        this.tableData = res
-      }, err => {
-        console.log("Error occured");
-      });;
+    // this.cadastroservice.loadClientes()
+    //   .subscribe(res => {
+    //     this.tableData = res
+    //   }, err => {
+    //     console.log("Error occured");
+    //   });;
   }
 
   public carregaEstado(value) {
@@ -179,7 +182,7 @@ export class FornecedorComponent implements OnInit {
       let fornecedor = new Fornecedor()
       fornecedor.idfornecedor = this.idfornecedor
       fornecedor.bairro = this.bairro
-      fornecedor.cnpj = this.cnpj
+      fornecedor.cnpj = this.cnpj.replace(/\D/g, '');
       fornecedor.dscomplemento = this.dscomplemento
       fornecedor.dsfornecedor = this.dsfornecedor
       fornecedor.idcidade = this.itemIdCidade
@@ -188,7 +191,7 @@ export class FornecedorComponent implements OnInit {
       fornecedor.nmpessoa = this.nmpessoa
       fornecedor.nmrua = this.nmrua
       fornecedor.email = this.email
-      fornecedor.nrtelefone = this.nrtelefone
+      fornecedor.nrtelefone = this.nrtelefone.replace(/\D/g, '');
       this.cadastroservice.saveOrUpdateFornecedor(fornecedor).subscribe(res => {
         let newItem = (JSON.parse(res._body))
         let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idFornecedor);

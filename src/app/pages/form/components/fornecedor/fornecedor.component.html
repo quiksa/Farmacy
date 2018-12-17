@@ -11,14 +11,14 @@
     </div>
     <div class="col-md-4">
       <label class="control-label">CNPJ</label>
-      <input type="number" class="form-control" [(ngModel)]="cnpj" placeholder="CNPJ">
+      <input type="text" [textMask]="{mask: mask}" class="form-control" [(ngModel)]="cnpj" placeholder="CNPJ">
     </div>
   </div>
 
   <div class="row show-grid">
     <div class="col-md-4">
       <label class="control-label">Telefone</label>
-      <input type="number" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
+      <input type="text" [textMask]="{mask: phone}" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
     </div>
     <div class="col-md-4 magemtop">
       Estado

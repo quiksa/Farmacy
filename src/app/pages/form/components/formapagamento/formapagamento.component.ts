@@ -3,49 +3,37 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import swal from 'sweetalert2';
 import 'rxjs/add/operator/delay';
 
-export class Estoque {
-  idunidade: string
-  idestoque: string
-  dsestoque: string
+export class FormaPagamento {
+  idformapagamento: string
+  dsformapagamento: string
+  dstipopagamento: string
 }
 
 @Component({
-  selector: 'app-estoque',
-  templateUrl: './estoque.component.html',
-  styleUrls: ['./estoque.component.scss'],
+  selector: 'app-formapagamento',
+  templateUrl: './formapagamento.component.html',
+  styleUrls: ['./formapagamento.component.scss'],
 })
-export class EstoqueComponent implements OnInit {
+export class FormaPagamentoComponent implements OnInit {
   tableData: Array<any>;
   pageSize = 10;
   pageNumber = 1;
 
-  public idunidade
-  public idestoque
-  public dsestoque
-  public unidadeList
-  public itemIdUnidade
+  public idformapagamento
+  public dsformapagamento
+  public dstipopagamento
 
   constructor(private cadastroservice: CadastroService) { }
 
 
   ngOnInit() {
     this.loadData();
-    this.loadUnidades()
   }
 
   loadData() {
-    this.cadastroservice.loadEstoque()
+    this.cadastroservice.loadFormaPagamento()
       .subscribe(res => {
         this.tableData = res
-      }, err => {
-        console.log("Error occured");
-      });
-  }
-
-  loadUnidades() {
-    this.cadastroservice.loadUnidades()
-      .subscribe(res => {
-        this.unidadeList = res
       }, err => {
         console.log("Error occured");
       });
@@ -56,27 +44,26 @@ export class EstoqueComponent implements OnInit {
   }
 
   clean() {
-    this.idunidade = null
-    this.idestoque = null
-    this.dsestoque = null
-    this.itemIdUnidade = null
+    this.idformapagamento = null
+    this.dsformapagamento = null
+    this.dstipopagamento = null
   }
 
   cadastra() {
-    if (!this.dsestoque || !this.idunidade) {
+    if (!this.dsformapagamento || !this.dstipopagamento) {
       swal({
         type: 'error',
         title: 'Oops...',
         text: 'Há campos vazios, verifique por favor.',
       });
     } else {
-      let estoque = new Estoque();
-      estoque.dsestoque = this.dsestoque
-      estoque.idestoque = this.idestoque
-      estoque.idunidade = this.idunidade
-      this.cadastroservice.saveOrUpdateEstoque(estoque).subscribe(res => {
+      let forma = new FormaPagamento();
+      forma.dsformapagamento = this.dsformapagamento
+      forma.idformapagamento = this.idformapagamento
+      forma.dstipopagamento = this.dstipopagamento
+      this.cadastroservice.saveOrUpdateFormaPagamento(forma).subscribe(res => {
         let newItem = (JSON.parse(res._body))
-        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idEstoque);
+        let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idFormaPagamento);
         if (updateItem) {
           let index = this.tableData.indexOf(updateItem);
           this.tableData[index] = newItem;
@@ -91,20 +78,19 @@ export class EstoqueComponent implements OnInit {
   }
 
   findIndexToUpdate(newItem) {
-    return newItem.idEstoque === this;
+    return newItem.idFormaPagamento === this;
   }
 
   editar(item) {
-    this.idunidade = item.unidade.idUnidade
-    this.idestoque = item.idEstoque
-    this.dsestoque = item.dsEstoque
-    this.itemIdUnidade = item.unidade.idUnidade
+    this.idformapagamento = item.idFormaPagamento
+    this.dsformapagamento = item.dsFormaPagamento
+    this.dstipopagamento = item.dsTipoPagamento
   }
 
   excluir(item) {
     swal({
-      title: 'Excluir Estoque',
-      text: 'Tem certeza que deseja excluir a estoque?',
+      title: 'Excluir Forma Pagamento',
+      text: 'Tem certeza que deseja excluir a Forma de Pagamento?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -112,7 +98,7 @@ export class EstoqueComponent implements OnInit {
       confirmButtonText: 'Sim, Excluir!'
     }).then((result) => {
       if (result.value) {
-        this.cadastroservice.deleteEstoque(item.idEstoque).subscribe(res => {
+        this.cadastroservice.deleteFormaPagamento(item.idFormaPagamento).subscribe(res => {
           const index: number = this.tableData.indexOf(item);
           if (index !== -1) {
             this.tableData.splice(index, 1);

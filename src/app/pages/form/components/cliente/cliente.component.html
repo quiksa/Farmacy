@@ -11,18 +11,18 @@
     </div>
     <div class="col-md-4">
       <label class="control-label">CPF</label>
-      <input type="number" class="form-control" [(ngModel)]="nrcpf" placeholder="CPF">
+      <input type="text" [textMask]="{mask: mask}" class="form-control" [(ngModel)]="nrcpf" placeholder="CPF">
     </div>
   </div>
 
   <div class="row show-grid">
     <div class="col-md-4">
       <label class="control-label">Telefone</label>
-      <input type="number" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
+      <input type="text" [textMask]="{mask: phone}" class="form-control" [(ngModel)]="nrtelefone" placeholder="Numero do telefone">
     </div>
     <div class="col-md-4">
       <label class="control-label">Data de Nascimento</label>
-      <input type="date" class="form-control" [(ngModel)]="dtnascimento" placeholder="Data de Nascimento">
+      <input type="date" class="form-control" [(ngModel)]="dtnascimento" placeholder="dd/mm/yyyy">
     </div>
     <div class="col-md-4">
       <label class="control-label">Sexo</label>
@@ -53,7 +53,7 @@
   <div class="row">
     <div class="col-md-6">
       <label class="control-label">Bairro</label>
-      <input type="text" class="form-control" [(ngModel)]="bairro" placeholder="Nome do Bairro">  
+      <input type="text" class="form-control" [(ngModel)]="bairro" placeholder="Nome do Bairro">
     </div>
     <div class="col-md-6">
       <label class="control-label">Complemento</label>
@@ -89,12 +89,13 @@
         <tbody>
           <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td>{{item.pessoa.nmPessoa}}</td>
-            <td>{{item.pessoa.nrcpf}}</td>
+            <td>{{item.nrcpf}}</td>
             <td>{{item.pessoa.nrtelefone}}</td>
             <td>{{item.pessoa.email}}</td>
             <td>{{item.pessoa.sgsexo}}</td>
             <td>{{item.pessoa.dtnascimento}}</td>
-            <td>{{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.cidade.estado.uf}} / {{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.nmRua}}-{{item.pessoa.endereco.bairro}}</td>
+            <td>{{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.cidade.estado.uf}} /
+              {{item.pessoa.endereco.cidade.nmCidade}}-{{item.pessoa.endereco.nmRua}}-{{item.pessoa.endereco.bairro}}</td>
             <td>
               <button (click)="editar(item)" class="btn edit">Editar</button>
               <button (click)="excluir(item)" class="btn del">Excluir</button>
@@ -104,9 +105,9 @@
       </table>
       <form class="pagination-wrapper">
         <div class="form-group pages">
-          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
-            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-            screenReaderCurrentLabel="You're on page">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
+            directionLinks="true" autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
           </pagination-controls>
         </div>
         <div class="form-group options pages">

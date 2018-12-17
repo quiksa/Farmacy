@@ -1,39 +1,60 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch'
 import { Unidade } from '../pages/form/components/unidade/unidade.component';
 import { Cliente } from '../pages/form/components/cliente/cliente.component';
 import { Funcionario } from '../pages/form/components/funcionario/funcionario.component';
 import { Fornecedor } from '../pages/form/components/fornecedor/fornecedor.component';
-import { Estoque } from '../pages/form/components/estoque/estoque.component';
 import { Mercadoria } from '../pages/form/components/mercadoria/mercadoria.component';
 import { MovimentoMercadoria } from '../pages/form/components/movimentoestoque/movimentoestoque.component';
+import { FormaPagamento } from '../pages/form/components/formapagamento/formapagamento.component';
 
 const url = 'http://localhost:8080';
 
+const idunidade = sessionStorage.getItem('idUnidade')
+const idUsuario = sessionStorage.getItem('idUsuario')
+
 @Injectable()
 export class CadastroService {
+  
+  constructor(private http: Http) {
+    this.headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+    this.options = new RequestOptions({ headers: this.headers });
+  }
 
-  constructor(private http: Http) { }
+  headers: Headers;
+  options: RequestOptions;
 
   saveOrUpdateMercadoria(mercadoria: Mercadoria): any {
     return this.http.post(url + '/mercadoria/insertOrUpdadeMercadoria', {
       idMercadoria: mercadoria.idmercadoria,
       nmMercadoria: mercadoria.nmmercadoria,
+      vlMercadoria: mercadoria.vlmercadoria,
       dsComplemento: mercadoria.dscomplemento,
       codBarra: mercadoria.codbarras,
-      idcategoria: mercadoria.idcategoria
+      idcategoria: mercadoria.idcategoria,
+      idunidade: sessionStorage.getItem('idUnidade')
     })
   }
 
-  saveOrUpdateEstoque(estoque: Estoque): any {
-    return this.http.post(url + '/estoque/insertOrUpdadeEstoque', {
-      idEstoque: estoque.idestoque,
-      idUnidade: estoque.idunidade,
-      dsEstoque: estoque.dsestoque
+  saveOrUpdateFormaPagamento(forma: FormaPagamento): Observable<any> {
+    return this.http.post(url + '/formapagamento/insertOrUpdateFormaPagamento', {
+      idFormaPagamento: forma.idformapagamento,
+      dsFormaPagamento: forma.dsformapagamento,
+      dsTipoPagamento: forma.dstipopagamento
     })
   }
+
+  // saveOrUpdateEstoque(estoque: Estoque): any {
+  //   return this.http.post(url + '/estoque/insertOrUpdadeEstoque', {
+  //     idEstoque: estoque.idestoque,
+  //     idUnidade: estoque.idunidade,
+  //     dsEstoque: estoque.dsestoque
+  //   })
+  // }
 
   saveOrUpdateFornecedor(fornecedor: Fornecedor): Observable<any> {
     return this.http.post(url + '/fornecedor/insertOrUpdadeFornecedor', {
@@ -42,6 +63,7 @@ export class CadastroService {
       idpessoa: fornecedor.idpessoa,
       bairro: fornecedor.bairro,
       dscomplemento: fornecedor.dscomplemento,
+      idFornecedor: fornecedor.idfornecedor,
       dsFornecedor: fornecedor.dsfornecedor,
       email: fornecedor.email,
       nmPessoa: fornecedor.nmpessoa,
@@ -73,18 +95,36 @@ export class CadastroService {
       idfornecedor: movimentomercadoria.idfornecedor,
       idmercadoria: movimentomercadoria.idmercadoria,
       idestoque: movimentomercadoria.idestoque,
+      dtvalidade: movimentomercadoria.dtvalidade,
       idmovimentoestoque: movimentomercadoria.idmovimentoestoque,
       dslote: movimentomercadoria.dslote,
       qtMovimentoMercadoria: movimentomercadoria.qtmovimentomercadoria,
       vlMovimentoMercadoria: movimentomercadoria.vlmercadoria,
-      idMovimentoMercadoria: movimentomercadoria.idmovimentomercadoria
+      idMovimentoMercadoria: movimentomercadoria.idmovimentomercadoria,
+      idunidade: sessionStorage.getItem('idUnidade'),
+      idfuncionario: sessionStorage.getItem('idUsuario')
     })
   }
 
-  loadEntradaEstoque(): any {
-    return this.http.get(url + '/movimentomercadoriaestoque/load').map((response: Response) => response.json())
+  loadSaidaEstoque(): any {
+    return this.http.get(url + '/docfiscal/docfiscalsaida', {
+      params: {
+        idunidade: sessionStorage.getItem('idUnidade'),
+      }
+    }).map((response: Response) => response.json())
   }
 
+  loadEntradaEstoque(): any {
+    return this.http.get(url + '/movimentomercadoriaestoque/loadentrada', {
+      params: {
+        idunidade: sessionStorage.getItem('idUnidade'),
+      }
+    }).map((response: Response) => response.json())
+  }
+
+  loadFormaPagamento(): any {
+    return this.http.get(url + '/formapagamento/load').map((response: Response) => response.json())
+  }
 
   loadMercadoria(): any {
     return this.http.get(url + '/mercadoria/load').map((response: Response) => response.json())
@@ -125,6 +165,14 @@ export class CadastroService {
   getEstados(filter): Observable<Array<any>> {
     return this.http.get(url + '/estado/load').map((response: Response) => response.json())
     //return this.http.get(this.url + '/estado').map((res) => { return this.extractFilteredData(res, filter) }).catch(this.handleError);
+  }
+
+  deleteFormaPagamento(idFormaPagamento: any): any {
+    return this.http.get(url + '/formapagamento/deleteFormaPagamento', {
+      params: {
+        idFormaPagamento: idFormaPagamento,
+      }
+    })
   }
 
   deleteMovimentacao(idMovimentoMercadoria: any): any {
@@ -239,12 +287,16 @@ export class CadastroService {
     })
   }
 
-  doVenda(listMercadorias, idcliente, idusuario): any {
-    return this.http.post(url + '/movimentomercadoriaestoque/saveVenda', {
+  doVenda(listMercadorias, idcliente, idFormaPagamento, idUsuario, idunidade): Observable<any> {
+    let data = {
       idCliente: idcliente,
-      idUsuario: idusuario,
-      listMercadorias: listMercadorias
-    })
+      idUsuario: idUsuario,
+      idUnidade: idunidade,
+      idFormaPagamento: idFormaPagamento,
+      mercadoriacompra: listMercadorias
+    }
+    let body = JSON.stringify(data);
+    return this.http.post(url + '/movimentomercadoriaestoque/saveVenda', body, this.options)
   }
 
   public extractFilteredData(res: Response, filter: string) {

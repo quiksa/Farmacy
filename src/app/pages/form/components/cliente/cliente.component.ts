@@ -26,6 +26,10 @@ export class Cliente {
 })
 export class ClienteComponent implements OnInit {
 
+  public mask = [/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]
+  public phone = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  public date = [/[0-9]/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
+
   tableData: Array<any>;
   pageSize = 10;
   pageNumber = 1;
@@ -97,6 +101,7 @@ export class ClienteComponent implements OnInit {
     this.cadastroservice.loadClientes()
       .subscribe(res => {
         this.tableData = res
+        debugger
       }, err => {
         console.log("Error occured");
       });;
@@ -118,6 +123,7 @@ export class ClienteComponent implements OnInit {
       let cliente = new Cliente()
       cliente.bairro = this.bairro
       cliente.dtnascimento = this.dtnascimento;
+      debugger
       cliente.dscomplemento = this.dscomplemento;
       cliente.email = this.email;
       cliente.idcidade = this.itemIdCidade;
@@ -126,9 +132,9 @@ export class ClienteComponent implements OnInit {
       cliente.idpessoa = this.idpessoa;
       cliente.nmpessoa = this.nmpessoa;
       cliente.nmrua = this.nmrua;
-      cliente.nrcpf = this.nrcpf;
+      cliente.nrcpf = this.nrcpf.replace(/\D/g,'');
       cliente.sgsexo = this.sgsexo;
-      cliente.nrtelefone = this.nrtelefone;
+      cliente.nrtelefone = this.nrtelefone.replace(/\D/g,'');
       this.cadastroservice.saveOrUpdateCliente(cliente).subscribe(res => {
         let newItem = (JSON.parse(res._body))
         let updateItem = this.tableData.find(this.findIndexToUpdate, newItem.idCliente);
@@ -160,7 +166,7 @@ export class ClienteComponent implements OnInit {
     this.nmrua = item.pessoa.endereco.nmRua
     this.dscomplemento = item.pessoa.endereco.dsComplemento
     this.dtnascimento = item.pessoa.dtnascimento
-    this.nrcpf = item.pessoa.nrcpf
+    this.nrcpf = item.nrcpf
     this.bairro = item.pessoa.endereco.bairro
     this.nrtelefone = item.pessoa.nrtelefone
     this.itemIdEstado = item.pessoa.endereco.cidade.estado.idEstado

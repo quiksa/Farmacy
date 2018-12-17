@@ -8,6 +8,7 @@ export class MovimentoMercadoria {
   idfornecedor: string
   idestoque: string
   idmovimentoestoque: string
+  dtvalidade: string
   vlmercadoria: string
   qtmovimentomercadoria: string
   idmercadoria: string
@@ -20,12 +21,15 @@ export class MovimentoMercadoria {
   styleUrls: ['./movimentoestoque.component.scss'],
 })
 export class MovimentoEstoqueComponent implements OnInit {
+
+  public date = [/[0-9]/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
+  
   tableData: Array<any>;
   pageSize = 10;
   pageNumber = 1;
 
   public idmercadoria
-  public idestoque
+  public dtvalidade
   public vlmercadoria
   public qtmovimentomercadoria
   public idmovimentoestoque
@@ -42,20 +46,7 @@ export class MovimentoEstoqueComponent implements OnInit {
   ngOnInit() {
     this.loadMercadoria()
     this.loadFornecedor()
-    this.loadEstoque()
     this.loadEntradaEstoque()
-  }
-
-  loadEstoque() {
-    this.cadastroservice.loadEstoque()
-      .subscribe(res => {
-        this.estoqueList = res.map(data => {
-          data.nome = data.unidade.nmRduzido + '/' + data.dsEstoque
-          return data
-        })
-      }, err => {
-        console.log("Error occured");
-      });
   }
 
   loadMercadoria() {
@@ -72,6 +63,7 @@ export class MovimentoEstoqueComponent implements OnInit {
     this.cadastroservice.loadEntradaEstoque()
       .subscribe(res => {
         this.tableData = res
+        debugger
       }, err => {
         console.log("Error occured");
       });
@@ -96,16 +88,16 @@ export class MovimentoEstoqueComponent implements OnInit {
 
   clean() {
     this.idmercadoria = null
-    this.idestoque = null
     this.idfornecedor = null
     this.qtmovimentomercadoria = null
     this.vlmercadoria = null
     this.dslote = null
+    this.dtvalidade = null
     this.idmovimentoestoque = null
   }
 
   cadastra() {
-    if (!this.idmercadoria || !this.idestoque || !this.idfornecedor || !this.qtmovimentomercadoria || !this.vlmercadoria) {
+    if (!this.idmercadoria || !this.idfornecedor || !this.qtmovimentomercadoria || !this.vlmercadoria) {
       swal({
         type: 'error',
         title: 'Oops...',
@@ -113,11 +105,11 @@ export class MovimentoEstoqueComponent implements OnInit {
       });
     } else {
       let movimentomercadoria = new MovimentoMercadoria();
-      movimentomercadoria.idestoque = this.idestoque
       movimentomercadoria.idfornecedor = this.idfornecedor
       movimentomercadoria.idmercadoria = this.idmercadoria
       movimentomercadoria.vlmercadoria = this.vlmercadoria
       movimentomercadoria.dslote = this.dslote
+      movimentomercadoria.dtvalidade = this.dtvalidade
       movimentomercadoria.idmovimentoestoque = this.idmovimentoestoque
       movimentomercadoria.qtmovimentomercadoria = this.qtmovimentomercadoria
       movimentomercadoria.idmovimentomercadoria = this.idmovimentomercadoria
@@ -143,11 +135,11 @@ export class MovimentoEstoqueComponent implements OnInit {
 
   editar(item) {
     this.idmercadoria = item.mercadoria.idMercadoria
-    this.idestoque = item.estoque.idEstoque
     this.idfornecedor = item.fornecedor.idFornecedor
     this.idmovimentoestoque = item.movimentoestoque.idMovimentoEstoque
     this.idmovimentomercadoria = item.idMovimentoMercadoria
     this.qtmovimentomercadoria = item.qtMovimentoMercadoria
+    this.dtvalidade = item.movimentoestoque.dtValidade
     this.vlmercadoria = item.vlMovimentoMercadoria
     this.dslote = item.movimentoestoque.dsLote
   }

@@ -1,54 +1,65 @@
-<div class="row">
-  <div class="col-md-6">
-    <label class="control-label"> Nome Cliente </label>
-    <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente" optionTextField="nmPessoa"
-    placeholder="Digite o nome do cliente"></ngx-select>
-  </div>
-  <div class="col-md-6">
-    <label class="control-label">CPF :</label>
-    <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente" optionTextField="nrCpf"
-    placeholder="Digite o nome do cliente"></ngx-select>       
-  </div>
-</div>
-<br>
-<br>
-<div class="row">
-  <div class="col-md-12 animated fadeIn">
-    
-      <div class="col-md-1" >
-        <label class="control-label">Quantidade: </label>
-        <input (keyup)="onKey($event)" type="number" class="form-control form-control-md" [(ngModel)]="qtdMercadoria" size="7">
-      </div>
-      <div class="col-md-4">
-        <label class="control-label">Produto: </label>
-        <!-- <input type="text" class="form-control form-control-md" placeholder="Descrição do produto" size="56"> -->
-        <ngx-select [allowClear]="true" (select)="selecionaItem($event)" [items]="productList" optionValueField="index" [(ngModel)]="idMercadoria" optionTextField="nmMercadoria">
-        </ngx-select> 
-      </div>
-      <div class="col-md-3">
-        <label class="control-label">Valor Unitário (R$): </label>
-        <ngx-select [allowClear]="true" [items]="productList" [disabled]="true" optionValueField="index" [(ngModel)]="idMercadoria" optionTextField="vlMercadoria">
-        </ngx-select> 
-      </div>
+<div class="row show-grid">
+  <div class="col-md-8">
+    <card>
       <div class="row">
-        <div class="col-md-1">
-          <label class="control-label">Sub-Total</label>
-          <input type="number" readonly class="form-control form-control-md cor"[(ngModel)]="subTotal">
-        </div>
-        <div class="col-md-1">
-          <label class="control-label">% Desconto</label>
-          <input (keyup)="onKey($event)" type="number" class="form-control form-control-md" [(ngModel)]="desconto">
-        </div>
-        <div class="col-md-2">
+        <div class="col-md-12 animated fadeIn">
+          <div class="col-md-1">
+            <label class="control-label">Quantidade: </label>
+            <input min="1" max="100" (keyup)="onKey($event)" type="number" class="form-control form-control-md"
+              [(ngModel)]="qtdMercadoria" size="7">
+          </div>
+          <div class="col-md-4">
+            <label class="control-label">Produto: </label>
+            <ngx-select [allowClear]="true" (select)="selecionaItem($event)" [items]="productList" optionValueField="index"
+              [(ngModel)]="idMercadoria" optionTextField="nmMercadoria">
+            </ngx-select>
+          </div>
+          <div class="col-md-4">
+            <label class="control-label">Barras: </label>
+            <ngx-select [allowClear]="true" (select)="selecionaItem($event)" [items]="productList" optionValueField="index"
+              [(ngModel)]="idMercadoria" optionTextField="codBarra">
+            </ngx-select>
+          </div>
+          <div class="col-md-3">
+            <label class="control-label">Valor Unitário (R$): </label>
+            <ngx-select [allowClear]="true" [items]="productList" [disabled]="true" optionValueField="index"
+              [(ngModel)]="idMercadoria" optionTextField="vlMercadoria">
+            </ngx-select>
+          </div>
+          <div class="col-md-2">
+            <label class="control-label">Sub-Total</label>
+            <input type="text" readonly class="form-control form-control-md cor" [(ngModel)]="subTotal">
+          </div>
+          <div class="col-md-1">
+            <label class="control-label">%Desconto</label>
+            <input (keyup)="onKey($event)" min="0" max="100" type="number" class="form-control form-control-md"
+              [(ngModel)]="desconto">
+          </div>
+          <div class="col-md-2">
             <label class="control-label">Total(R$)</label>
             <input type="number" readonly class="form-control form-control-md cor" [(ngModel)]="totalValor">
-          <button type="submit" class="btn btn-warning" (click)="addCarinho()" style="margin-top:10px;" >Adicionar</button>
-          <button type="submit" class="btn btn-warning" (click)="eventoLimpar()"  style="margin-top:10px;" >Limpar</button>
+          </div>
         </div>
       </div>
+      <button type="submit" class="btn btn-warning" (click)="addCarinho()" style="margin-top:20px;">Adicionar</button>
+      <button type="submit" class="btn btn-warning" (click)="eventoLimpar()" style="margin-top:20px; margin-left: 5px">Limpar</button>
+    </card>
+  </div>
+  <div style="border: 1px solid #e4e3e3;padding: 10px;"  class="col-md-4">
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label"> Nome Cliente </label>
+        <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente"
+          optionTextField="nmPessoa" placeholder="Digite o nome do cliente"></ngx-select>
+      </div>
+      <div class="col-md-6">
+        <label class="control-label">CPF :</label>
+        <ngx-select [allowClear]="true" [items]="clienteList" optionValueField="idCliente" [(ngModel)]="idCliente"
+          optionTextField="nrCpf" placeholder="Digite o nome do cliente"></ngx-select>
+      </div>
+    </div>
   </div>
 </div>
-<br>
 <div class="row">
   <div class="col-md-8">
     <card cardTitle="Produtos">
@@ -65,7 +76,7 @@
           <tr *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td>{{item.quantidade}}</td>
             <td>{{item.mercadoria}}</td>
-            <td>{{item.total}}</td>           
+            <td>R$ {{item.total}}</td>
             <td>
               <button (click)="editar(item)" class="btn edit">Editar</button>
               <button (click)="excluir(item)" class="btn del">Excluir</button>
@@ -75,9 +86,9 @@
       </table>
       <form class="pagination-wrapper">
         <div class="form-group pages">
-          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
-            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-            screenReaderCurrentLabel="You're on page">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
+            directionLinks="true" autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
           </pagination-controls>
         </div>
         <div class="form-group options pages">
@@ -97,12 +108,21 @@
       </form>
     </card>
   </div>
-  <div class="col-md-4">
-      <card>
-        <h2>Pedido nº 0000 </h2>
-        <h3>Total : R$ {{totalPedido}} </h3>
-        <button (click)="confirmVenda()" class="btn btn-primary"> CONFIRMA COMPRA</button>
-        <button (click)="cancelarVenda()" class="btn btn-danger"> CANCELA COMPRA</button>
-      </card>
+  <div style="border: 1px solid #e4e3e3;padding-bottom: 15px;" class="col-md-4">
+      <!-- <h2>Pedido nº : 0000 </h2> -->
+      <h3>Total : R$ {{totalPedido}} </h3>
+      <div class="row">
+        <div class="col-md-4">
+          <button (click)="confirmVenda()" class="btn btn-primary"> CONFIRMA COMPRA</button>
+        </div>
+        <div class="col-md-4">
+          <button (click)="cancelarVenda()" class="btn btn-danger"> CANCELA COMPRA</button>
+        </div>
+        <div class="col-md-4">
+          <ngx-select [allowClear]="true" [items]="formaPagamentoList" optionValueField="idFormaPagamento" optionTextField="dsTipoPagamento" [(ngModel)]="idFormaPagamento"
+            placeholder="Tipo Pagamento">
+          </ngx-select>
+        </div>
+      </div>
   </div>
 </div>

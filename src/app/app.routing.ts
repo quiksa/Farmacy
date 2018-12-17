@@ -3,7 +3,7 @@ import { PagesComponent } from './pages/pages.component';
 
 const appRoutes: Routes = [
   {
-    path: '',
+    path: '*',
     redirectTo: 'login',
     pathMatch: 'full'
   },
